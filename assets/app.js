@@ -125,7 +125,7 @@
     { symbol: "AAPL", type: "Stock", price: 229.6, move: "+0.9%", accent: "gold" },
     { symbol: "MSFT", type: "Stock", price: 411.8, move: "+0.3%", accent: "charcoal" }
   ];
-  const paperKey = "cryptostoks-paper-v1";
+  const paperKey = "cryptostocks-paper-v1";
   const defaultPaper = () => ({ balance: 10000, realized: 0, positions: [] });
   let paperState = defaultPaper();
   let selectedSymbol = markets[0].symbol;
