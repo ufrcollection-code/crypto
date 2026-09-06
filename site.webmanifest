@@ -1,0 +1,14 @@
+{
+  "name": "CryptoStoks Academy",
+  "short_name": "CryptoStoks",
+  "description": "Free Crypto, Forex and Stocks learning tools for independent learners.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f3ed",
+  "theme_color": "#1d211e",
+  "icons": [{
+    "src": "/favicon.svg",
+    "sizes": "any",
+    "type": "image/svg+xml"
+  }]
+}

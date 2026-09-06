@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forex Pip Calculator: Estimate Pip Value by Lot Size | CryptoStoks</title>
+    <meta name="description" content="Estimate the gross value of a forex pip move from pips, lot size and a simple pip-value input.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://cryptostoks.site/tools/forex-pip-calculator/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CryptoStoks Academy">
+    <meta property="og:title" content="Forex Pip Calculator: Estimate Pip Value by Lot Size | CryptoStoks">
+    <meta property="og:description" content="Estimate the gross value of a forex pip move from pips, lot size and a simple pip-value input.">
+    <meta property="og:url" content="https://cryptostoks.site/tools/forex-pip-calculator/">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"Forex Pip Calculator: Estimate Pip Value by Lot Size | CryptoStoks","description":"Estimate the gross value of a forex pip move from pips, lot size and a simple pip-value input.","url":"https://cryptostoks.site/tools/forex-pip-calculator/","isPartOf":{"@type":"WebSite","name":"CryptoStoks Academy","url":"https://cryptostoks.site"},"applicationCategory":"EducationalApplication","operatingSystem":"Any"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the default pip value accurate for every pair?","acceptedAnswer":{"@type":"Answer","text":"No. The default is only an illustrative input. Check your pair, account currency and contract specification."}},{"@type":"Question","name":"Does the result include spread?","acceptedAnswer":{"@type":"Answer","text":"No. It estimates a gross pip move only. Add spread, commission, funding and slippage separately."}},{"@type":"Question","name":"Can I calculate yen pairs with it?","acceptedAnswer":{"@type":"Answer","text":"Yes, if the pip value input matches the pair’s pip convention and account currency."}}]}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStoks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStoks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link" href="/learn/">Learn</a>
+        <a class="nav-link is-active" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    <main id="main-content"><section class="tool-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span aria-current="page">Forex pip calculator</span></div><div class="tool-hero-grid"><div><div class="eyebrow">Tool / forex maths</div><h1>Forex pip calculator</h1><p class="lede">Use this simple forex pip calculator to explore how a pip move changes with lot size. Because pip values depend on the pair, quote currency, contract size and account currency, this tool asks you to enter the pip value per standard lot instead of pretending one formula fits every pair.</p></div><div class="tool-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg><span>Runs in your browser</span><small>No account · No API key</small></div></div></div></section>
+    <section class="section tool-main"><div class="container tool-layout"><article class="calculator-card"><div class="calculator-head"><div><div class="section-kicker">Input panel</div><h2>Try an example</h2></div><span class="calculator-status"><i></i> local only</span></div><form class="calculator-form" data-calculator="pip"><div class="field-grid"><label class="field"><span>Pip movement</span><input type="number" inputmode="decimal" step="any" data-field="pips" value="25" aria-label="Pip movement"><small>Pips</small></label><label class="field"><span>Pip value per standard lot</span><input type="number" inputmode="decimal" step="any" data-field="pipValue" value="10" aria-label="Pip value per standard lot"><small>Account currency per pip</small></label><label class="field"><span>Lots</span><input type="number" inputmode="decimal" step="any" data-field="lots" value="0.1" aria-label="Lots"><small>Standard-lot equivalents</small></label></div><button class="button solid full-button" type="submit">Calculate result <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></button></form><div class="result-panel" data-result aria-live="polite"><div class="result-kicker">Result appears here</div><p>Enter values above, then calculate. Use the output to inspect the assumptions—not to predict a return.</p></div></article><div class="tool-explainer"><div class="section-kicker">How to use it</div><h2>Numbers are clearer when the assumptions are visible.</h2><p>Start with the default example. Change one input at a time and notice which part of the result moves. Then read the explanation below before using any real-world number.</p><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Use your account currency consistently.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Include costs and uncertainty outside the simple model.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Verify the product’s own contract or fee rules.</span></li></ul></div></div></section>
+    <section class="section content-section-wrap"><div class="container narrow-content">
+  <section class="content-section">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Why pip value needs a convention</h2>
+      <p>A pip is a price increment, but its cash value depends on the amount traded. A standard lot may be 100,000 base-currency units, while a mini or micro lot is smaller. The value also changes when the quote or account currency differs and when exchange rates move.</p><p>This calculator keeps the input visible: you supply the pip value per standard lot from a reliable specification, then scale it by lots. That makes the assumption easier to audit.</p>
+      <div class="formula"><span>Working model</span><strong>Gross pip result = pips × pip value per standard lot × lots</strong></div>
+      
+      
+      
+    </div>
+  </section>
+  <section class="content-section">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Use the result inside a complete risk plan</h2>
+      <p>If the result for a 30-pip stop is 45 in account currency, that is the estimated loss at the chosen lots before spread, commission, slippage and rollover. Compare it with the cash risk budget, then confirm the broker’s contract rules.</p><p>Do not choose lots only because the margin requirement looks small. Notional exposure and the adverse move to invalidation remain the central questions.</p>
+      
+      
+      
+      
+    </div>
+  </section>
+  <section class="faq-section section-rule">
+    <div class="section-kicker">Common questions</div>
+    <h2>Before you move on</h2>
+    <div class="faq-list"><details><summary>Is the default pip value accurate for every pair?<span>+</span></summary><p>No. The default is only an illustrative input. Check your pair, account currency and contract specification.</p></details><details><summary>Does the result include spread?<span>+</span></summary><p>No. It estimates a gross pip move only. Add spread, commission, funding and slippage separately.</p></details><details><summary>Can I calculate yen pairs with it?<span>+</span></summary><p>Yes, if the pip value input matches the pair’s pip convention and account currency.</p></details></div>
+  </section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/pips-spread-lots/"><span class="tag">Forex</span><h3>Pips, spread and lots: the forex vocabulary</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/forex-for-beginners/"><span class="tag">Forex</span><h3>Forex for beginners: read a currency pair</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/leverage-and-margin/"><span class="tag">Risk</span><h3>Leverage and margin: exposure is not safety</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></div></section></main>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStoks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStoks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStoks Academy</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

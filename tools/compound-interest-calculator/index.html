@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compound Interest Calculator with Monthly Contributions | CryptoStoks</title>
+    <meta name="description" content="Explore how an initial amount, recurring contribution, annual return assumption and time horizon interact in a simple growth model.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://cryptostoks.site/tools/compound-interest-calculator/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CryptoStoks Academy">
+    <meta property="og:title" content="Compound Interest Calculator with Monthly Contributions | CryptoStoks">
+    <meta property="og:description" content="Explore how an initial amount, recurring contribution, annual return assumption and time horizon interact in a simple growth model.">
+    <meta property="og:url" content="https://cryptostoks.site/tools/compound-interest-calculator/">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebApplication","name":"Compound Interest Calculator with Monthly Contributions | CryptoStoks","description":"Explore how an initial amount, recurring contribution, annual return assumption and time horizon interact in a simple growth model.","url":"https://cryptostoks.site/tools/compound-interest-calculator/","isPartOf":{"@type":"WebSite","name":"CryptoStoks Academy","url":"https://cryptostoks.site"},"applicationCategory":"EducationalApplication","operatingSystem":"Any"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does this account for inflation?","acceptedAnswer":{"@type":"Answer","text":"No. The output is nominal. Compare it with an inflation assumption separately if you need a real-value estimate."}},{"@type":"Question","name":"Does monthly contribution timing matter?","acceptedAnswer":{"@type":"Answer","text":"Yes. This version assumes contributions at the end of each month. Other timing produces a different result."}},{"@type":"Question","name":"Can markets return the same percentage every year?","acceptedAnswer":{"@type":"Answer","text":"No. The constant rate is a teaching simplification, not a realistic guarantee."}}]}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStoks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStoks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link" href="/learn/">Learn</a>
+        <a class="nav-link is-active" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    <main id="main-content"><section class="tool-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span aria-current="page">Compound interest and contribution calculator</span></div><div class="tool-hero-grid"><div><div class="eyebrow">Tool / long-term maths</div><h1>Compound interest and contribution calculator</h1><p class="lede">This compound interest calculator models a recurring monthly contribution with a constant annual return assumption. It is useful for understanding time, contributions and compounding. It is not a forecast: real returns are uneven, fees and taxes matter, and losses are possible.</p></div><div class="tool-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg><span>Runs in your browser</span><small>No account · No API key</small></div></div></div></section>
+    <section class="section tool-main"><div class="container tool-layout"><article class="calculator-card"><div class="calculator-head"><div><div class="section-kicker">Input panel</div><h2>Try an example</h2></div><span class="calculator-status"><i></i> local only</span></div><form class="calculator-form" data-calculator="compound"><div class="field-grid"><label class="field"><span>Starting amount</span><input type="number" inputmode="decimal" step="any" data-field="principal" value="1000" aria-label="Starting amount"><small>Account currency</small></label><label class="field"><span>Monthly contribution</span><input type="number" inputmode="decimal" step="any" data-field="monthlyContribution" value="100" aria-label="Monthly contribution"><small>Account currency</small></label><label class="field"><span>Assumed annual return</span><input type="number" inputmode="decimal" step="any" data-field="annualReturn" value="6" aria-label="Assumed annual return"><small>Percent</small></label><label class="field"><span>Time horizon</span><input type="number" inputmode="decimal" step="any" data-field="years" value="10" aria-label="Time horizon"><small>Years</small></label></div><button class="button solid full-button" type="submit">Calculate result <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></button></form><div class="result-panel" data-result aria-live="polite"><div class="result-kicker">Result appears here</div><p>Enter values above, then calculate. Use the output to inspect the assumptions—not to predict a return.</p></div></article><div class="tool-explainer"><div class="section-kicker">How to use it</div><h2>Numbers are clearer when the assumptions are visible.</h2><p>Start with the default example. Change one input at a time and notice which part of the result moves. Then read the explanation below before using any real-world number.</p><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Use your account currency consistently.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Include costs and uncertainty outside the simple model.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Verify the product’s own contract or fee rules.</span></li></ul></div></div></section>
+    <section class="section content-section-wrap"><div class="container narrow-content">
+  <section class="content-section">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>What the model assumes</h2>
+      <p>The calculation compounds a monthly rate derived from the annual assumption and adds the contribution at the end of each month. It shows a mathematical path under a steady rate—not what a market will actually deliver. Real returns can be negative, lumpy and affected by fees, taxes, inflation and contribution timing.</p><p>Try a lower return, no contribution and a shorter horizon. Comparing scenarios is more educational than focusing on one attractive outcome.</p>
+      <div class="formula"><span>Working model</span><strong>Future value = contributions + growth under the chosen constant-rate assumption</strong></div>
+      
+      
+      
+    </div>
+  </section>
+  <section class="content-section">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Time does not remove investment risk</h2>
+      <p>A longer horizon can give compounding more time to work, but it does not guarantee a positive result. The asset, allocation and sequence of returns still matter. A high assumed return can make the output look precise while hiding uncertainty.</p><p>Use a range of assumptions and keep emergency savings, debt costs and liquidity needs outside the growth illustration.</p>
+      
+      
+      
+      <aside class="callout"><span class="callout-mark">!</span><p>The output is a scenario, not a promise, target or investment recommendation.</p></aside>
+    </div>
+  </section>
+  <section class="faq-section section-rule">
+    <div class="section-kicker">Common questions</div>
+    <h2>Before you move on</h2>
+    <div class="faq-list"><details><summary>Does this account for inflation?<span>+</span></summary><p>No. The output is nominal. Compare it with an inflation assumption separately if you need a real-value estimate.</p></details><details><summary>Does monthly contribution timing matter?<span>+</span></summary><p>Yes. This version assumes contributions at the end of each month. Other timing produces a different result.</p></details><details><summary>Can markets return the same percentage every year?<span>+</span></summary><p>No. The constant rate is a teaching simplification, not a realistic guarantee.</p></details></div>
+  </section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/portfolio-diversification/"><span class="tag">Portfolio</span><h3>Portfolio diversification: more than holding many tickers</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/risk-management/"><span class="tag">Risk</span><h3>Risk management in trading: stay in the game</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/dca-and-average-price-calculator/"><span class="tag">Calculator</span><h3>DCA and average price calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></div></section></main>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStoks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStoks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStoks Academy</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Position Sizing for Trading: Formula and Examples | CryptoStoks</title>
+    <meta name="description" content="Learn how to calculate position size from account risk, entry price and stop distance across simple trading examples.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://cryptostoks.site/learn/position-sizing/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CryptoStoks Academy">
+    <meta property="og:title" content="Position Sizing for Trading: Formula and Examples | CryptoStoks">
+    <meta property="og:description" content="Learn how to calculate position size from account risk, entry price and stop distance across simple trading examples.">
+    <meta property="og:url" content="https://cryptostoks.site/learn/position-sizing/">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","name":"Position Sizing for Trading: Formula and Examples | CryptoStoks","description":"Learn how to calculate position size from account risk, entry price and stop distance across simple trading examples.","url":"https://cryptostoks.site/learn/position-sizing/","isPartOf":{"@type":"WebSite","name":"CryptoStoks Academy","url":"https://cryptostoks.site"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does position sizing guarantee the planned loss?","acceptedAnswer":{"@type":"Answer","text":"No. Execution gaps, slippage, fees and product mechanics can change the result. It is a planning estimate."}},{"@type":"Question","name":"Should I size from the take-profit target?","acceptedAnswer":{"@type":"Answer","text":"The size should primarily reflect the risk at invalidation. A target can help evaluate the trade, but it should not hide an oversized position."}},{"@type":"Question","name":"Can I use this for forex?","acceptedAnswer":{"@type":"Answer","text":"The simple calculator is educational. Forex sizing needs pip value, lot conventions and account-currency conversion, which is why the pip calculator is separate."}}]}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStoks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStoks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link is-active" href="/learn/">Learn</a>
+        <a class="nav-link" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    <main id="main-content"><section class="lesson-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/learn/">Learn</a><span>/</span><span aria-current="page">Position sizing: turn a stop into a number</span></div><div class="lesson-hero-grid"><div><div class="eyebrow">Protect the process / size</div><h1>Position sizing: turn a stop into a number</h1><p class="lede">Position sizing connects your idea to your risk budget. The goal is not to make every trade the same size; it is to make the potential loss understandable before entry. A wider stop generally requires a smaller quantity if the cash risk stays constant.</p><div class="lesson-meta"><span>Risk</span><span>10 min read</span><span>Updated for launch</span></div></div><div class="lesson-stamp"><span>FIELD NOTE</span><strong>position sizing</strong><div class="stamp-lines"><i></i><i></i><i></i><i></i><i></i></div><small>Learn the language<br>then test the idea.</small></div></div></div></section>
+    <section class="section lesson-body"><div class="container lesson-layout"><article class="prose"><div class="outcomes"><div class="section-kicker">After this lesson</div><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Calculate risk amount from an account and percentage.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Convert entry-to-stop distance into units.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Spot when a minimum order size changes the plan.</span></li></ul></div>
+  <section class="content-section">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>The core formula</h2>
+      <p>First calculate the cash amount you are willing to risk. Then calculate the loss per unit if the invalidation is reached. Divide the first number by the second. If fees, spread or conversion affect the product, reserve room for them rather than pretending the arithmetic is exact.</p><p>The calculator on this site uses the same simple model for learning. Real contracts can have point values, minimum sizes, tick values or different settlement rules, so verify the instrument specification.</p>
+      <div class="formula"><span>Working model</span><strong>Position size = cash risk ÷ |entry price − stop price|</strong></div>
+      
+      
+      
+    </div>
+  </section>
+  <section class="content-section">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>A worked example</h2>
+      <p>Imagine an account of 2,000 and a planned risk of 0.5%. The cash risk is 10. If an entry is 50 and the stop is 48, the distance is 2 per unit. The simple size is 5 units because 10 divided by 2 equals 5.</p><p>If the venue requires a minimum of 10 units, the theoretical size cannot be used as-is. You could reduce the planned risk, choose a different instrument or skip the trade. A minimum size is a constraint, not a reason to ignore the risk plan.</p>
+      
+      
+      
+      
+    </div>
+  </section>
+  <section class="content-section">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Check the hidden assumptions</h2>
+      <p>Does the product trade in whole units? Is the quote in your account currency? Does one contract represent one share, one coin or a multiplier? Will the stop execute during a gap? These questions can change the cash result.</p><p>For leveraged products, calculate the notional value separately from the cash risk. A smaller margin requirement can create a large exposure. The position-size number is only useful when you understand what one unit means.</p>
+      
+      <ul class="dot-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Unit or contract multiplier</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Currency conversion</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Fees and funding</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Minimum size and increments</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Liquidity and gap behaviour</span></li></ul>
+      
+      
+    </div>
+  </section><section class="example-card"><div class="section-kicker">Worked example</div><h2>The same risk, different stop</h2><p>With 100 of cash risk, a 2-unit stop distance gives a 50-unit position. A 5-unit stop distance gives a 20-unit position. The wider stop does not automatically mean more risk when the size is adjusted.</p></section><section class="checklist-section"><div class="section-kicker">Quick review</div><h2>Carry these four ideas forward.</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Calculate cash risk first.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Use absolute entry-to-stop distance.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Check unit and contract rules.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Round down when the product requires increments.</span></li></ul></section><section class="quiz-section section-rule" data-quiz><div class="section-kicker">Check your understanding</div><div class="quiz-head"><div><h2>Three questions before the next tab.</h2><p>Choose the answer that best matches the lesson. This is a memory check, not a market signal.</p></div><span class="quiz-score" data-quiz-result aria-live="polite">Not started</span></div><div class="quiz-list"><fieldset class="quiz-question" data-answer="0"><legend><span>01</span>What should position size start from?</legend><div class="quiz-options"><label><input type="radio" name="quiz-position-sizing-0" value="0"><span>Cash risk</span></label><label><input type="radio" name="quiz-position-sizing-0" value="1"><span>Confidence</span></label><label><input type="radio" name="quiz-position-sizing-0" value="2"><span>The largest leverage setting</span></label></div></fieldset><fieldset class="quiz-question" data-answer="0"><legend><span>02</span>What can make several positions one bet?</legend><div class="quiz-options"><label><input type="radio" name="quiz-position-sizing-1" value="0"><span>Shared drivers</span></label><label><input type="radio" name="quiz-position-sizing-1" value="1"><span>Different colours</span></label><label><input type="radio" name="quiz-position-sizing-1" value="2"><span>A longer watchlist</span></label></div></fieldset><fieldset class="quiz-question" data-answer="1"><legend><span>03</span>What is a stop order?</legend><div class="quiz-options"><label><input type="radio" name="quiz-position-sizing-2" value="0"><span>A guaranteed fill price</span></label><label><input type="radio" name="quiz-position-sizing-2" value="1"><span>An instruction that can face execution risk</span></label><label><input type="radio" name="quiz-position-sizing-2" value="2"><span>A profit promise</span></label></div></fieldset></div><button class="button outline" type="button" data-quiz-submit>Check answers <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></button></section>
+  <section class="faq-section section-rule">
+    <div class="section-kicker">Common questions</div>
+    <h2>Before you move on</h2>
+    <div class="faq-list"><details><summary>Does position sizing guarantee the planned loss?<span>+</span></summary><p>No. Execution gaps, slippage, fees and product mechanics can change the result. It is a planning estimate.</p></details><details><summary>Should I size from the take-profit target?<span>+</span></summary><p>The size should primarily reflect the risk at invalidation. A target can help evaluate the trade, but it should not hide an oversized position.</p></details><details><summary>Can I use this for forex?<span>+</span></summary><p>The simple calculator is educational. Forex sizing needs pip value, lot conventions and account-currency conversion, which is why the pip calculator is separate.</p></details></div>
+  </section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/risk-management/"><span class="tag">Risk</span><h3>Risk management in trading: stay in the game</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/leverage-and-margin/"><span class="tag">Risk</span><h3>Leverage and margin: exposure is not safety</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/position-size-calculator/"><span class="tag">Calculator</span><h3>Trading position size calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></article><aside class="lesson-aside"><div class="aside-card sticky"><div class="section-kicker">On this page</div><ol><li><span>01</span>The core formula</li><li><span>02</span>A worked example</li><li><span>03</span>Check the hidden assumptions</li></ol><a class="aside-action" href="/practice/paper-trading/">Practise the process <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div><div class="aside-card aside-note"><span class="aside-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.3-2.9 7.7-7 10-4.1-2.3-7-5.7-7-10V6Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><strong>Educational only</strong><p>This page explains concepts. It does not provide personalised advice, live signals or a guaranteed outcome.</p></div></aside></div></section></main>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStoks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStoks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStoks Academy</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
