@@ -20,7 +20,7 @@
     root.innerHTML = `<div class="result-kicker">Calculated view</div><h3>${title}</h3><div class="result-grid">${cells.map(cell => `<div class="result-cell"><span>${cell.label}</span><strong>${cell.value}</strong></div>`).join("")}</div><p class="result-note">${note}</p>`;
   };
 
-  const calculate = (type, values, result) => {
+  const calculate = (type, values, result, form) => {
     if (type === "crypto-profit") {
       const { buyPrice, sellPrice, quantity, fees } = values;
       if (![buyPrice, sellPrice, quantity, fees].every(finite) || quantity <= 0 || buyPrice <= 0 || sellPrice < 0) throw new Error("Enter positive prices and a quantity.");
@@ -56,17 +56,17 @@
     }
 
     if (type === "dca") {
-      const { oldUnits, oldPrice, newUnits, newPrice } = values;
-      if (![oldUnits, oldPrice, newUnits, newPrice].every(finite) || oldUnits < 0 || newUnits <= 0 || oldPrice < 0 || newPrice < 0 || oldUnits + newUnits <= 0) throw new Error("Enter units and prices greater than zero for the new purchase.");
-      const oldCost = oldUnits * oldPrice;
-      const newCost = newUnits * newPrice;
-      const totalUnits = oldUnits + newUnits;
-      const average = (oldCost + newCost) / totalUnits;
-      setResult(result, "A weighted average entry price", [
+      const purchases = $$('[data-dca-row]', form).map(row => ({ units: number($('[data-dca-units]', row)?.value), price: number($('[data-dca-price]', row)?.value) }));
+      if (!purchases.length || purchases.some(item => !finite(item.units) || !finite(item.price) || item.units <= 0 || item.price < 0)) throw new Error("Enter positive units and valid prices for every purchase.");
+      const totalUnits = purchases.reduce((sum, item) => sum + item.units, 0);
+      const totalCost = purchases.reduce((sum, item) => sum + item.units * item.price, 0);
+      const average = totalCost / totalUnits;
+      const largest = Math.max(...purchases.map(item => item.units * item.price));
+      setResult(result, `Weighted average across ${purchases.length} purchases`, [
         { label: "Total units", value: money(totalUnits, 4) },
-        { label: "Total cost", value: `$${money(oldCost + newCost)}` },
+        { label: "Total cost", value: `$${money(totalCost)}` },
         { label: "Blended average", value: `$${money(average, 4)}` },
-        { label: "New purchase weight", value: percent((newCost / (oldCost + newCost || 1)) * 100) }
+        { label: "Largest purchase weight", value: `${money((largest / totalCost) * 100, 2)}%` }
       ], "A lower average can still mean more money is exposed to the asset. Fees, taxes and the future price are outside this weighted-average model.");
       return;
     }
@@ -98,6 +98,55 @@
         { label: "Illustrative growth", value: `$${money(future - contributed)}` },
         { label: "Months modelled", value: money(months, 0) }
       ], "This assumes a constant annual rate converted to a monthly rate. Actual returns are uneven; fees, tax, inflation and losses are not included.");
+      return;
+    }
+
+    if (type === "risk-reward") {
+      const { entryPrice, stopPrice, targetPrice, capitalRisk } = values;
+      if (![entryPrice, stopPrice, targetPrice, capitalRisk].every(finite) || entryPrice <= 0 || capitalRisk <= 0 || entryPrice === stopPrice) throw new Error("Enter distinct entry and stop prices plus a positive cash risk.");
+      const risk = Math.abs(entryPrice - stopPrice);
+      const reward = Math.abs(targetPrice - entryPrice);
+      const ratio = reward / risk;
+      const breakEven = 100 / (1 + ratio);
+      setResult(result, `The plan offers ${money(ratio, 2)}R before costs`, [
+        { label: "Price risk", value: money(risk, 4) },
+        { label: "Potential reward", value: money(reward, 4) },
+        { label: "Reward : risk", value: `${money(ratio, 2)} : 1` },
+        { label: "Break-even win rate", value: `${money(breakEven, 2)}%` },
+        { label: "Cash risk", value: `$${money(capitalRisk)}` },
+        { label: "Potential profit", value: `$${money(capitalRisk * ratio)}` }
+      ], "The break-even rate assumes full wins and losses with no fees, spread, slippage or partial exits.");
+      return;
+    }
+
+    if (type === "forex-margin") {
+      const { units, price: pairPrice, leverage, conversion } = values;
+      if (![units, pairPrice, leverage, conversion].every(finite) || units <= 0 || pairPrice <= 0 || leverage <= 0 || conversion <= 0) throw new Error("Enter positive units, price, leverage and conversion.");
+      const notional = units * pairPrice * conversion;
+      const margin = notional / leverage;
+      setResult(result, "Illustrative margin requirement", [
+        { label: "Notional exposure", value: `$${money(notional)}` },
+        { label: "Required margin", value: `$${money(margin)}` },
+        { label: "Margin rate", value: `${money(100 / leverage, 2)}%` },
+        { label: "1% notional move", value: `$${money(notional * 0.01)}` }
+      ], "Provider tiers, hedging rules, maintenance thresholds and changing currency conversion are not included.");
+      return;
+    }
+
+    if (type === "market-cap") {
+      const { tokenPrice, circulatingSupply, maxSupply, targetMarketCap } = values;
+      if (![tokenPrice, circulatingSupply, maxSupply, targetMarketCap].every(finite) || tokenPrice <= 0 || circulatingSupply <= 0 || maxSupply <= 0 || maxSupply < circulatingSupply) throw new Error("Enter a price and supplies where maximum supply is not below circulating supply.");
+      const marketCap = tokenPrice * circulatingSupply;
+      const fdv = tokenPrice * maxSupply;
+      const scenarioPrice = targetMarketCap / circulatingSupply;
+      setResult(result, "Two transparent valuation views", [
+        { label: "Market cap", value: `$${money(marketCap, 0)}` },
+        { label: "Fully diluted value", value: `$${money(fdv, 0)}` },
+        { label: "Supply circulating", value: `${money((circulatingSupply / maxSupply) * 100, 2)}%` },
+        { label: "FDV / market cap", value: `${money(fdv / marketCap, 2)}×` },
+        { label: "Scenario price", value: `$${money(scenarioPrice, 6)}` },
+        { label: "Scenario change", value: percent(((scenarioPrice / tokenPrice) - 1) * 100) }
+      ], "The scenario holds circulating supply constant and does not model unlocks, liquidity, demand or capital flows.");
     }
   };
 
@@ -108,13 +157,49 @@
         const result = form.closest(".calculator-card")?.querySelector("[data-result]");
         if (!result) return;
         try {
-          calculate(form.dataset.calculator, formValues(form), result);
+          calculate(form.dataset.calculator, formValues(form), result, form);
         } catch (error) {
           result.classList.remove("is-ready");
           result.innerHTML = `<div class="result-kicker">Check the inputs</div><h3>${error.message}</h3><p>Use positive, non-zero values where the field label requires them.</p>`;
         }
       });
     });
+  };
+
+  const initDcaRows = () => {
+    $$('[data-dca-builder]').forEach(builder => {
+      const button = builder.parentElement?.querySelector('[data-add-dca-row]');
+      button?.addEventListener('click', () => {
+        const count = $$('[data-dca-row]', builder).length + 1;
+        const row = document.createElement('div');
+        row.className = 'dca-row';
+        row.dataset.dcaRow = '';
+        row.innerHTML = `<label class="field"><span>Purchase units</span><input type="number" inputmode="decimal" step="any" min="0" value="1" data-dca-units><small>Units in purchase ${count}</small></label><label class="field"><span>Purchase price</span><input type="number" inputmode="decimal" step="any" min="0" value="100" data-dca-price><small>Price per unit</small></label><button class="remove-row-button" type="button" aria-label="Remove purchase">Remove</button>`;
+        builder.append(row);
+        row.querySelector('.remove-row-button')?.addEventListener('click', () => row.remove());
+      });
+    });
+  };
+
+  const initLessonFilters = () => {
+    const grid = $('[data-lesson-grid]');
+    if (!grid) return;
+    $$('[data-filter]').forEach(button => button.addEventListener('click', () => {
+      const selected = button.dataset.filter;
+      $$('[data-filter]').forEach(item => item.classList.toggle('is-active', item === button));
+      $$('[data-category]', grid).forEach(card => {
+        card.hidden = selected !== 'All' && card.dataset.category !== selected;
+      });
+    }));
+  };
+
+  const initReveal = () => {
+    const items = $$('.reveal');
+    if (!('IntersectionObserver' in window)) return items.forEach(item => item.classList.add('is-visible'));
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+    }), { threshold: 0.12 });
+    items.forEach(item => observer.observe(item));
   };
 
   const markets = [
@@ -217,7 +302,7 @@
       const submit = $("[data-quiz-submit]", quiz);
       const result = $("[data-quiz-result]", quiz);
       submit?.addEventListener("click", () => {
-        const questions = $$('[data-question]', quiz);
+        const questions = $$('[data-answer]', quiz);
         let answered = 0;
         let score = 0;
         questions.forEach(question => {
@@ -288,6 +373,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     initMenu();
     initCalculators();
+    initDcaRows();
+    initLessonFilters();
+    initReveal();
     initQuiz();
     initPaper();
   });
