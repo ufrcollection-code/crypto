@@ -133,6 +133,61 @@
       return;
     }
 
+    if (type === "drawdown-recovery") {
+      const { startingValue, lossPercent } = values;
+      if (![startingValue, lossPercent].every(finite) || startingValue <= 0 || lossPercent <= 0 || lossPercent >= 100) throw new Error("Enter a starting value and a drawdown between 0% and 100%.");
+      const cashLoss = startingValue * (lossPercent / 100);
+      const remaining = startingValue - cashLoss;
+      const recoveryPercent = (cashLoss / remaining) * 100;
+      setResult(result, "The smaller base needs a larger percentage gain", [
+        { label: "Value after drawdown", value: `$${money(remaining)}` },
+        { label: "Cash loss", value: `$${money(cashLoss)}` },
+        { label: "Gain needed", value: `$${money(cashLoss)}` },
+        { label: "Required recovery", value: `${money(recoveryPercent, 2)}%` }
+      ], "This is recovery arithmetic only. It does not estimate future returns, recovery time, deposits, withdrawals or tax.", "negative");
+      return;
+    }
+
+    if (type === "dividend-yield") {
+      const { annualDividend, sharePrice, shares } = values;
+      if (![annualDividend, sharePrice, shares].every(finite) || sharePrice <= 0 || shares <= 0) throw new Error("Enter a positive share price and share count, plus a valid annual dividend.");
+      const dividendYield = (annualDividend / sharePrice) * 100;
+      const annualIncome = annualDividend * shares;
+      const investedValue = sharePrice * shares;
+      setResult(result, "An indicated dividend snapshot", [
+        { label: "Dividend yield", value: `${money(dividendYield, 2)}%` },
+        { label: "Estimated annual income", value: `$${money(annualIncome)}` },
+        { label: "Current share value", value: `$${money(investedValue)}` },
+        { label: "Quarterly equivalent", value: `$${money(annualIncome / 4)}` }
+      ], "The quarterly figure is an even division for comparison only. Declared timing, special dividends, tax, fees and currency conversion may differ.");
+      return;
+    }
+
+    if (type === "investment-fee") {
+      const { initialInvestment, monthlyContribution, annualReturn, annualFee, years } = values;
+      if (![initialInvestment, monthlyContribution, annualFee, years].every(finite) || years <= 0 || !Number.isFinite(annualReturn) || annualReturn <= -100 || annualReturn - annualFee <= -100) throw new Error("Enter valid amounts, a positive horizon and return assumptions above −100%.");
+      const months = Math.round(years * 12);
+      const grow = (annualRate) => {
+        const monthlyRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
+        let balance = initialInvestment;
+        for (let month = 0; month < months; month += 1) balance = balance * (1 + monthlyRate) + monthlyContribution;
+        return balance;
+      };
+      const noFeeValue = grow(annualReturn);
+      const afterFeeValue = grow(annualReturn - annualFee);
+      const difference = noFeeValue - afterFeeValue;
+      const contributions = initialInvestment + monthlyContribution * months;
+      setResult(result, "A simplified long-term fee comparison", [
+        { label: "Value before fee", value: `$${money(noFeeValue)}` },
+        { label: "Fee-adjusted value", value: `$${money(afterFeeValue)}` },
+        { label: "Estimated value difference", value: `$${money(difference)}` },
+        { label: "Total contributions", value: `$${money(contributions)}` },
+        { label: "Net annual assumption", value: `${money(annualReturn - annualFee, 2)}%` },
+        { label: "Months modelled", value: money(months, 0) }
+      ], "This subtracts the annual fee from a constant return assumption. Actual charging methods, returns, tax, inflation and other costs can differ.");
+      return;
+    }
+
     if (type === "market-cap") {
       const { tokenPrice, circulatingSupply, maxSupply, targetMarketCap } = values;
       if (![tokenPrice, circulatingSupply, maxSupply, targetMarketCap].every(finite) || tokenPrice <= 0 || circulatingSupply <= 0 || maxSupply <= 0 || maxSupply < circulatingSupply) throw new Error("Enter a price and supplies where maximum supply is not below circulating supply.");

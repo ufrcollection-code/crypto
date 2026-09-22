@@ -98,6 +98,9 @@ em { color: var(--copper); font-family: var(--serif); font-weight: 500; letter-s
 .dot-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 22px; margin: 22px 0; }
 .dot-list li { position: relative; padding-left: 18px; color: var(--ink-soft); font-size: .92rem; }
 .dot-list li::before { position: absolute; top: .65em; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--copper); content: ""; }
+.direct-answer { margin: 0 0 38px; padding: 28px 30px; border: 1px solid rgba(176, 106, 82, .32); border-left: 4px solid var(--copper); border-radius: var(--radius-md); background: rgba(255, 253, 249, .72); box-shadow: 0 10px 30px rgba(29, 33, 30, .05); }
+.direct-answer h2 { margin-bottom: 12px; font-size: clamp(1.45rem, 3vw, 2.1rem); }
+.direct-answer p { max-width: 760px; margin-bottom: 0; color: var(--ink-soft); font-size: 1rem; }
 
 /* Home */
 .home-hero { overflow: hidden; padding: 100px 0 78px; border-bottom: 1px solid var(--line); }
