@@ -17,7 +17,7 @@
     root.classList.remove("is-ready", "is-negative");
     root.classList.add("is-ready");
     if (tone === "negative") root.classList.add("is-negative");
-    root.innerHTML = `<div class="result-kicker">Calculated view</div><h3>${title}</h3><div class="result-grid">${cells.map(cell => `<div class="result-cell"><span>${cell.label}</span><strong>${cell.value}</strong></div>`).join("")}</div><p class="result-note">${note}</p>`;
+    root.innerHTML = `<div class="result-kicker">Calculated view</div><h3>${title}</h3><div class="result-grid">${cells.map(cell => `<div class="result-cell"><span>${cell.label}</span><strong>${cell.value}</strong></div>`).join("")}</div><p class="result-note">${note}</p><div class="result-actions"><button class="result-copy" type="button" data-copy-result>Copy result</button><span data-copy-status role="status"></span></div>`;
   };
 
   const calculate = (type, values, result, form) => {
@@ -40,18 +40,27 @@
     }
 
     if (type === "position-size") {
-      const { accountBalance, riskPercent, entryPrice, stopPrice } = values;
-      if (![accountBalance, riskPercent, entryPrice, stopPrice].every(finite) || accountBalance <= 0 || riskPercent <= 0 || entryPrice <= 0 || stopPrice < 0 || entryPrice === stopPrice) throw new Error("Enter a balance, risk percentage and two different prices.");
+      const { accountBalance, riskPercent, entryPrice, stopPrice, costPercent } = values;
+      if (![accountBalance, riskPercent, entryPrice, stopPrice, costPercent].every(finite) || accountBalance <= 0 || riskPercent <= 0 || riskPercent > 100 || costPercent > 100 || entryPrice <= 0 || stopPrice < 0 || entryPrice === stopPrice) throw new Error("Enter a balance, risk from 0–100%, costs from 0–100%, and two different prices.");
       const riskAmount = accountBalance * (riskPercent / 100);
       const distance = Math.abs(entryPrice - stopPrice);
-      const units = riskAmount / distance;
+      const costRate = costPercent / 100;
+      const estimatedCostPerUnit = entryPrice * costRate;
+      const units = riskAmount / (distance + estimatedCostPerUnit);
       const notional = units * entryPrice;
-      setResult(result, "A simple risk-based size", [
+      const estimatedCosts = notional * costRate;
+      const stopLoss = units * distance;
+      const direction = stopPrice < entryPrice ? "Long example" : "Short example";
+      setResult(result, "Risk-based size with a cost buffer", [
+        { label: "Direction", value: direction },
         { label: "Cash risk", value: `$${money(riskAmount)}` },
-        { label: "Stop distance", value: money(distance, 4) },
+        { label: "Stop distance", value: `$${money(distance, 4)} (${money((distance / entryPrice) * 100, 2)}%)` },
+        { label: "Estimated costs", value: `$${money(estimatedCosts)}` },
         { label: "Estimated units", value: money(units, 4) },
-        { label: "Approx. notional", value: `$${money(notional)}` }
-      ], "This model assumes one unit loses one price unit across the stop distance. Check contract multipliers, minimum sizes, fees, slippage and currency conversion.");
+        { label: "Approx. notional", value: `$${money(notional)}` },
+        { label: "Exposure vs account", value: `${money((notional / accountBalance) * 100, 2)}%` },
+        { label: "Stop loss + cost buffer", value: `$${money(stopLoss + estimatedCosts)}` }
+      ], "The cost input reserves a percentage of position value inside the cash-risk budget. Round down to the permitted order increment and check contract multipliers, margin, minimum sizes, slippage and currency conversion.");
       return;
     }
 
@@ -219,6 +228,56 @@
         }
       });
     });
+  };
+
+  const initResultCopy = () => {
+    document.addEventListener("click", async event => {
+      const button = event.target.closest("[data-copy-result]");
+      if (!button) return;
+      const panel = button.closest("[data-result]");
+      const status = panel?.querySelector("[data-copy-status]");
+      if (!panel || !status) return;
+      const heading = panel.querySelector("h3")?.textContent?.trim();
+      const cells = $$(".result-cell", panel).map(cell => {
+        const label = cell.querySelector("span")?.textContent?.trim();
+        const value = cell.querySelector("strong")?.textContent?.trim();
+        return `${label}: ${value}`;
+      });
+      const note = panel.querySelector(".result-note")?.textContent?.trim();
+      const copy = [heading, ...cells, note].filter(Boolean).join("\n");
+      try {
+        await navigator.clipboard.writeText(copy);
+        status.textContent = "Copied";
+      } catch (_) {
+        const helper = document.createElement("textarea");
+        helper.value = copy;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.append(helper);
+        helper.select();
+        const copied = document.execCommand("copy");
+        helper.remove();
+        status.textContent = copied ? "Copied" : "Copy unavailable";
+      }
+    });
+  };
+
+  const initPrivacyChoices = () => {
+    const banner = $("[data-privacy-banner]");
+    if (!banner) return;
+    const choice = window.__csAnalyticsChoice?.();
+    if (choice !== "allowed" && choice !== "denied") banner.hidden = false;
+    const choose = value => {
+      window.__csSetAnalyticsConsent?.(value);
+      banner.hidden = true;
+    };
+    $("[data-privacy-accept]", banner)?.addEventListener("click", () => choose("allowed"));
+    $("[data-privacy-decline]", banner)?.addEventListener("click", () => choose("denied"));
+    $$('[data-open-privacy]').forEach(button => button.addEventListener("click", () => {
+      banner.hidden = false;
+      $("[data-privacy-accept]", banner)?.focus();
+    }));
   };
 
   const initDcaRows = () => {
@@ -427,7 +486,9 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     initMenu();
+    initPrivacyChoices();
     initCalculators();
+    initResultCopy();
     initDcaRows();
     initLessonFilters();
     initReveal();

@@ -3,14 +3,46 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D95T0FNX16"></script>
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-D95T0FNX16');
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
     </script>
     <title>Drawdown Recovery Calculator: Required Gain After a Loss | CryptoStocks</title>
     <meta name="description" content="Calculate the percentage gain required to recover from a portfolio drawdown and see why larger losses require disproportionately larger gains.">
@@ -32,7 +64,7 @@
     <meta name="twitter:title" content="Drawdown Recovery Calculator: Required Gain After a Loss | CryptoStocks">
     <meta name="twitter:description" content="Calculate the percentage gain required to recover from a portfolio drawdown and see why larger losses require disproportionately larger gains.">
     <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
-    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"WebApplication","name":"Drawdown Recovery Calculator: Required Gain After a Loss | CryptoStocks","description":"Calculate the percentage gain required to recover from a portfolio drawdown and see why larger losses require disproportionately larger gains.","url":"https://cryptostocks.site/tools/drawdown-recovery-calculator/","isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"},"applicationCategory":"EducationalApplication","operatingSystem":"Any"},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://cryptostocks.site/tools/"},{"@type":"ListItem","position":3,"name":"Drawdown recovery calculator","item":"https://cryptostocks.site/tools/drawdown-recovery-calculator/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does a 50% loss need a 100% gain?","acceptedAnswer":{"@type":"Answer","text":"Because the remaining half must double to reach the original value."}},{"@type":"Question","name":"Can the tool predict recovery time?","acceptedAnswer":{"@type":"Answer","text":"No. It only calculates the percentage and cash arithmetic."}},{"@type":"Question","name":"Does adding new money count as recovery?","acceptedAnswer":{"@type":"Answer","text":"It raises account value, but it is a contribution rather than an investment return."}}]}]</script>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"WebApplication","name":"Drawdown Recovery Calculator: Required Gain After a Loss | CryptoStocks","description":"Calculate the percentage gain required to recover from a portfolio drawdown and see why larger losses require disproportionately larger gains.","url":"https://cryptostocks.site/tools/drawdown-recovery-calculator/","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"},"applicationCategory":"EducationalApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://cryptostocks.site/tools/"},{"@type":"ListItem","position":3,"name":"Drawdown recovery calculator","item":"https://cryptostocks.site/tools/drawdown-recovery-calculator/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why does a 50% loss need a 100% gain?","acceptedAnswer":{"@type":"Answer","text":"Because the remaining half must double to reach the original value."}},{"@type":"Question","name":"Can the tool predict recovery time?","acceptedAnswer":{"@type":"Answer","text":"No. It only calculates the percentage and cash arithmetic."}},{"@type":"Question","name":"Does adding new money count as recovery?","acceptedAnswer":{"@type":"Answer","text":"It raises account value, but it is a contribution rather than an investment return."}}]}]</script>
     <link rel="stylesheet" href="/assets/styles.css">
   </head>
   <body>
@@ -78,12 +110,12 @@
       
       
     </div>
-  </section><section class="sources-section section-rule"><div class="section-kicker">Primary references</div><h2>Continue with original sources.</h2><p>These links provide definitions and current context. Product rules, regulation and network details can change, so verify time-sensitive information at the source.</p><ul><li><a href="https://www.finra.org/investors/investing/investing-basics/risk" target="_blank" rel="noopener noreferrer">FINRA — Managing investment risk <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li><li><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/diversification" target="_blank" rel="noopener noreferrer">Investor.gov — Diversification <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li></ul></section><aside class="author-card compact"><img class="author-avatar" src="/assets/images/umar-farooq.jpeg" width="88" height="88" loading="lazy" alt="Umar Farooq, CryptoStocks Academy author"><div><span class="section-kicker">Written and reviewed by</span><h2><a href="/authors/umar-farooq/">Umar Farooq</a></h2><p>Founder and educational content author.</p><a class="text-link" href="/authors/umar-farooq/">Author profile <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div></aside>
+  </section><section class="sources-section section-rule"><div class="section-kicker">Primary references</div><h2>Continue with original sources.</h2><p>These links provide definitions and current context. Product rules, regulation and network details can change, so verify time-sensitive information at the source.</p><ul><li><a href="https://www.finra.org/investors/investing/investing-basics/risk" target="_blank" rel="noopener noreferrer">FINRA — Managing investment risk <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li><li><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/diversification" target="_blank" rel="noopener noreferrer">Investor.gov — Diversification <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li></ul></section><aside class="author-card compact"><img class="author-avatar" src="/assets/images/umar-farooq.jpeg" width="88" height="88" loading="lazy" alt="Umar Farooq, CryptoStocks Academy author"><div><span class="section-kicker">Written by</span><h2><a href="/authors/umar-farooq/">Umar Farooq</a></h2><p>Founder and educational content author.</p><a class="text-link" href="/authors/umar-farooq/">Author profile <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div></aside>
   <section class="faq-section section-rule">
     <div class="section-kicker">Common questions</div>
     <h2>Before you move on</h2>
     <div class="faq-list"><details><summary>Why does a 50% loss need a 100% gain?<span>+</span></summary><p>Because the remaining half must double to reach the original value.</p></details><details><summary>Can the tool predict recovery time?<span>+</span></summary><p>No. It only calculates the percentage and cash arithmetic.</p></details><details><summary>Does adding new money count as recovery?<span>+</span></summary><p>It raises account value, but it is a contribution rather than an investment return.</p></details></div>
-  </section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/risk-management/"><span class="tag">Risk</span><h3>Risk management in trading: stay in the game</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/position-size-calculator/"><span class="tag">Calculator</span><h3>Trading position size calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/portfolio-diversification/"><span class="tag">Portfolio</span><h3>Portfolio diversification: more than holding many tickers</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></div></section></main>
+  </section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/risk-management/"><span class="tag">Risk</span><h3>Risk management in trading: stay in the game</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/position-size-calculator/"><span class="tag">Calculator</span><h3>Crypto position size calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/portfolio-diversification/"><span class="tag">Portfolio</span><h3>Portfolio diversification: more than holding many tickers</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></div></section></main>
     
   <footer class="site-footer">
     <div class="container footer-grid">
@@ -95,11 +127,22 @@
         <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
       </div>
       <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
-      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a></div>
-      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
     </div>
     <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
   </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
     <script src="/assets/app.js" defer></script>
   </body>
 </html>

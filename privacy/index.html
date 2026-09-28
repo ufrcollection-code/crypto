@@ -3,14 +3,46 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D95T0FNX16"></script>
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-D95T0FNX16');
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
     </script>
     <title>Privacy Policy | CryptoStocks Academy</title>
     <meta name="description" content="Read the CryptoStocks Academy privacy policy and understand what the static site does and does not collect.">
@@ -32,7 +64,7 @@
     <meta name="twitter:title" content="Privacy Policy | CryptoStocks Academy">
     <meta name="twitter:description" content="Read the CryptoStocks Academy privacy policy and understand what the static site does and does not collect.">
     <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
-    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"WebPage","name":"Privacy Policy | CryptoStocks Academy","description":"Read the CryptoStocks Academy privacy policy and understand what the static site does and does not collect.","url":"https://cryptostocks.site/privacy/","isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"Privacy policy","item":"https://cryptostocks.site/privacy/"}]}]</script>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"WebPage","name":"Privacy Policy | CryptoStocks Academy","description":"Read the CryptoStocks Academy privacy policy and understand what the static site does and does not collect.","url":"https://cryptostocks.site/privacy/","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"Privacy policy","item":"https://cryptostocks.site/privacy/"}]}]</script>
     <link rel="stylesheet" href="/assets/styles.css">
   </head>
   <body>
@@ -54,12 +86,23 @@
       </nav>
     </div>
   </header>
-    <main id="main-content"><section class="collection-hero trust-hero"><div class="container collection-hero-grid"><div><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Privacy policy</span></div><div class="eyebrow">Trust / privacy</div><h1>Privacy policy</h1><p class="lede">This policy describes the current behaviour of the static CryptoStocks Academy site. It was last reviewed on 22 September 2026. Advertising is under consideration; if ad code, analytics or other third-party services are enabled, their actual data use and relevant choices must be explained before activation.</p><div class="lesson-meta"><span>Reviewed 2026-09-22</span><a href="/authors/umar-farooq/">Editorial lead: Umar Farooq</a></div></div><div class="trust-seal"><span>TRUST<br>NOTE</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.3-2.9 7.7-7 10-4.1-2.3-7-5.7-7-10V6Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg><small>Clear terms.<br>Visible limits.</small></div></div></section><section class="section trust-body"><div class="container trust-layout"><article class="prose">
+    <main id="main-content"><section class="collection-hero trust-hero"><div class="container collection-hero-grid"><div><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Privacy policy</span></div><div class="eyebrow">Trust / privacy</div><h1>Privacy policy</h1><p class="lede">This policy describes the current behaviour of the static CryptoStocks Academy site and was reviewed on 28 September 2026. The site uses consent-controlled Google Analytics for audience measurement. The supplied build does not contain Google ad units or an AdSense publisher ID.</p><div class="lesson-meta"><span>Reviewed 2026-09-28</span><a href="/authors/umar-farooq/">Editorial lead: Umar Farooq</a></div></div><div class="trust-seal"><span>TRUST<br>NOTE</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.3-2.9 7.7-7 10-4.1-2.3-7-5.7-7-10V6Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg><small>Clear terms.<br>Visible limits.</small></div></div></section><section class="section trust-body"><div class="container trust-layout"><article class="prose">
   <section class="content-section" id="a-mostly-static-experience">
     <div class="section-marker" aria-hidden="true"></div>
     <div class="content-section-body">
       <h2>A mostly static experience</h2>
-      <p>The learning pages and calculators are designed to work without an account. Calculator inputs are processed in the browser and are not sent to a server by the site code. The paper trading simulator stores its sample portfolio in browser local storage; it is not an account database.</p><p>GitHub Pages or a future hosting provider may process technical request data such as IP address, user agent and timestamps under its own policies.</p>
+      <p>The learning pages and calculators work without an account. Calculator inputs are processed in the browser and are not sent to a CryptoStocks Academy database. The paper trading simulator stores its sample portfolio in browser local storage; it is not a broker account or remote portfolio database.</p><p>The site also stores the visitor&#39;s analytics preference locally so the choice can be respected on later pages. Clearing site data removes the simulator record and privacy preference from that browser. The hosting provider may process technical request data such as IP address, user agent and timestamps under its own policies.</p>
+      
+      
+      
+      
+    </div>
+  </section>
+  <section class="content-section" id="google-analytics">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Google Analytics</h2>
+      <p>CryptoStocks Academy uses Google Analytics 4 measurement ID G-D95T0FNX16 to understand aggregate page visits, device categories, traffic sources and interactions so the learning experience can be maintained. The site presents an analytics choice before loading the Google Analytics library. If a visitor continues without analytics, the analytics tag is not loaded by this site code.</p><p>If analytics is allowed, Google Analytics may use first-party identifiers such as the _ga cookie and process technical information under Google&#39;s terms and privacy controls. CryptoStocks Academy does not use this website to ask for a name, trading account, wallet address or payment information for analytics. Analytics reports are used for audience measurement and content improvement, not personalised financial advice.</p>
       
       
       
@@ -70,35 +113,46 @@
     <div class="section-marker" aria-hidden="true"></div>
     <div class="content-section-body">
       <h2>Email and support</h2>
-      <p>If you email the address listed on the Contact page, the mail provider may retain the message and address so a reply can be sent. Do not include recovery phrases, private keys, passwords or payment details. Keep correspondence only as long as needed to handle the request and meet legal obligations.</p>
+      <p>If you email the address listed on the Contact page, the email provider may retain the message and address so a reply can be sent. Do not include recovery phrases, private keys, passwords or payment details. Correspondence should be kept only as long as reasonably needed to handle the request and meet applicable obligations.</p>
       
       
       
       
     </div>
   </section>
-  <section class="content-section" id="future-services">
+  <section class="content-section" id="advertising-status">
     <div class="section-marker" aria-hidden="true"></div>
     <div class="content-section-body">
-      <h2>Future services</h2>
-      <p>If analytics, advertising, embedded videos, newsletter tools or live market data are added, this policy must be updated before those services are enabled. The site should explain what is collected, why it is used, the legal basis where relevant, retention and user choices.</p>
+      <h2>Advertising status</h2>
+      <p>The supplied site build does not contain Google ad units or an AdSense publisher ID. Applying to an advertising programme does not itself mean ads are serving. If advertising is enabled, this policy must be updated to describe the active provider, cookies or identifiers, data uses and available controls.</p><p>Before serving Google ads where regional consent rules apply, the publisher must configure an appropriate Google-certified consent management platform through AdSense or another certified provider. The site&#39;s current analytics choice is not presented as a replacement for an advertising CMP.</p>
       
       
       
       
     </div>
   </section>
-  <section class="content-section" id="advertising-status-and-choices">
+  <section class="content-section" id="your-choices">
     <div class="section-marker" aria-hidden="true"></div>
     <div class="content-section-body">
-      <h2>Advertising status and choices</h2>
-      <p>This build does not include Google ad units, analytics tags or advertising cookies in its site code. Applying for an advertising program alone does not mean ads are currently running on these pages.</p><p>If advertising is enabled, the site must first describe the ad provider, its cookies or identifiers, how data is used and any consent or opt-out options that apply to its visitors. This paragraph will need updating to describe the actual configuration rather than an assumed future setup.</p>
+      <h2>Your choices</h2>
+      <p>Use the Privacy choices control in the footer to allow or decline the site&#39;s current analytics measurement. A visitor can change the choice later or clear browser storage. Browser settings can also block or remove cookies, although that can reset saved preferences and the local paper portfolio.</p><p>Google provides separate privacy information and controls for its services. Requirements vary by location, so this page describes the site configuration and is not a substitute for legal advice.</p>
       
       
       
       
     </div>
-  </section></article><aside class="trust-aside"><div class="aside-card"><div class="section-kicker">At a glance</div><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>No account is required for the current learning tools.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Calculator inputs stay in the browser in the current static site.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Local storage can be cleared through browser settings.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Third-party hosting policies may still apply.</span></li></ul></div><div class="aside-card aside-note"><span class="aside-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 16.5-.8 3.3 3.3-.8L18 8.5 15.5 6Z"/><path d="m14.5 7 2.5 2.5"/></svg></span><strong>Current editorial note</strong><p>This page reflects the current static site and was reviewed on 2026-09-22. Material service changes require a matching policy update.</p></div></aside></div></section></main>
+  </section>
+  <section class="content-section" id="consent-and-regional-requirements">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Consent and regional requirements</h2>
+      <p>The analytics preference in this build controls the current Google Analytics tag. It does not represent an IAB Transparency and Consent Framework string and is not described as a Google-certified advertising CMP.</p><p>If Google ads are enabled, the publisher must configure the appropriate AdSense privacy message or another certified CMP for regions where Google requires one, then re-check this policy against the live configuration.</p>
+      
+      
+      
+      
+    </div>
+  </section><section class="sources-section section-rule"><div class="section-kicker">Primary references</div><h2>Continue with original sources.</h2><p>These links provide definitions and current context. Product rules, regulation and network details can change, so verify time-sensitive information at the source.</p><ul><li><a href="https://support.google.com/analytics/answer/7318509" target="_blank" rel="noopener noreferrer">Google Analytics — Privacy disclosures <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li><li><a href="https://support.google.com/analytics/answer/11593727" target="_blank" rel="noopener noreferrer">Google Analytics — Data collection <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li><li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google — Privacy &amp; Terms <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li></ul></section></article><aside class="trust-aside"><div class="aside-card"><div class="section-kicker">At a glance</div><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>No account is required for the learning tools.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Calculator inputs stay in the browser.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Analytics loads only after the visitor allows it.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Privacy choices can be reopened from the footer.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>No Google ad units are included in this build.</span></li></ul></div><div class="aside-card aside-note"><span class="aside-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 16.5-.8 3.3 3.3-.8L18 8.5 15.5 6Z"/><path d="m14.5 7 2.5 2.5"/></svg></span><strong>Current editorial note</strong><p>This page reflects the current static site and was reviewed on 2026-09-28. Material service changes require a matching policy update.</p></div></aside></div></section></main>
     
   <footer class="site-footer">
     <div class="container footer-grid">
@@ -110,11 +164,22 @@
         <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
       </div>
       <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
-      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a></div>
-      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
     </div>
     <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
   </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
     <script src="/assets/app.js" defer></script>
   </body>
 </html>

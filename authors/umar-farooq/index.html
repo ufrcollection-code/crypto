@@ -3,14 +3,46 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D95T0FNX16"></script>
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-D95T0FNX16');
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
     </script>
     <title>Umar Farooq — Author at CryptoStocks Academy</title>
     <meta name="description" content="Meet Umar Farooq, founder and author of CryptoStocks Academy, and browse his educational guides and calculator methodologies.">
@@ -32,7 +64,7 @@
     <meta name="twitter:title" content="Umar Farooq — Author at CryptoStocks Academy">
     <meta name="twitter:description" content="Meet Umar Farooq, founder and author of CryptoStocks Academy, and browse his educational guides and calculator methodologies.">
     <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
-    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"ProfilePage","name":"Umar Farooq — Author at CryptoStocks Academy","description":"Meet Umar Farooq, founder and author of CryptoStocks Academy, and browse his educational guides and calculator methodologies.","url":"https://cryptostocks.site/authors/umar-farooq/","isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"},"mainEntity":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person","@type":"Person","name":"Umar Farooq","image":"https://cryptostocks.site/assets/images/umar-farooq.jpeg"}},{"@context":"https://schema.org","@type":"Person","@id":"https://cryptostocks.site/authors/umar-farooq/#person","name":"Umar Farooq","url":"https://cryptostocks.site/authors/umar-farooq/","image":"https://cryptostocks.site/assets/images/umar-farooq.jpeg","jobTitle":"Founder & educational content author","worksFor":{"@id":"https://cryptostocks.site/#organization"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"About","item":"https://cryptostocks.site/about/"},{"@type":"ListItem","position":3,"name":"Umar Farooq","item":"https://cryptostocks.site/authors/umar-farooq/"}]}]</script>
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"ProfilePage","name":"Umar Farooq — Author at CryptoStocks Academy","description":"Meet Umar Farooq, founder and author of CryptoStocks Academy, and browse his educational guides and calculator methodologies.","url":"https://cryptostocks.site/authors/umar-farooq/","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"},"mainEntity":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person","@type":"Person","name":"Umar Farooq","image":"https://cryptostocks.site/assets/images/umar-farooq.jpeg"}},{"@context":"https://schema.org","@type":"Person","@id":"https://cryptostocks.site/authors/umar-farooq/#person","name":"Umar Farooq","url":"https://cryptostocks.site/authors/umar-farooq/","image":"https://cryptostocks.site/assets/images/umar-farooq.jpeg","jobTitle":"Founder & educational content author","knowsAbout":["Beginner market education","Risk management","Crypto basics","Forex basics","Stock market basics"],"worksFor":{"@id":"https://cryptostocks.site/#organization"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"About","item":"https://cryptostocks.site/about/"},{"@type":"ListItem","position":3,"name":"Umar Farooq","item":"https://cryptostocks.site/authors/umar-farooq/"}]}]</script>
     <link rel="stylesheet" href="/assets/styles.css">
   </head>
   <body>
@@ -54,7 +86,7 @@
       </nav>
     </div>
   </header>
-    <main id="main-content"><section class="author-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/about/">About</a><span>/</span><span aria-current="page">Umar Farooq</span></div><div class="author-hero-grid"><div><div class="eyebrow">Author / founder</div><h1>Umar Farooq</h1><p class="lede">Umar Farooq founded CryptoStocks Academy to make the language of crypto, forex and stocks easier to understand without signals, hype or guaranteed outcomes. He writes and reviews the academy’s beginner guides, worked examples and calculator explanations with a risk-first approach.</p><div class="lesson-meta"><span>Founder & educational content author</span><span>Reviewed 22 September 2026</span></div></div><div class="author-portrait"><img src="/assets/images/umar-farooq.jpeg" width="574" height="790" alt="Portrait of Umar Farooq, author at CryptoStocks Academy"></div></div></div></section><section class="section author-body"><div class="container"><div class="author-principles"><div><div class="section-kicker">Editorial approach</div><h2>What readers can expect.</h2></div><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Explain the mechanism before discussing an outcome.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Show formula assumptions and important omissions.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Prefer primary sources for rules and product details.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Separate education from personalised advice.</span></li></ul></div><div class="section-head author-work-head"><div><div class="section-kicker">Published work</div><h2 class="section-title">Guides by<br><em>Umar Farooq.</em></h2></div><p class="section-copy">Every academy lesson is written or reviewed under the same risk-first editorial standard.</p></div><div class="lesson-grid"><a class="lesson-card reveal" data-category="Crypto" href="/learn/crypto-for-beginners/">
+    <main id="main-content"><section class="author-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/about/">About</a><span>/</span><span aria-current="page">Umar Farooq</span></div><div class="author-hero-grid"><div><div class="eyebrow">Author / founder</div><h1>Umar Farooq</h1><p class="lede">Umar Farooq founded CryptoStocks Academy to make the language of crypto, forex and stocks easier to understand without signals, hype or guaranteed outcomes. He writes and maintains the academy’s beginner guides, worked examples and calculator explanations using a risk-first, source-visible approach.</p><div class="lesson-meta"><span>Founder & educational content author</span><span>Reviewed 28 September 2026</span></div></div><div class="author-portrait"><img src="/assets/images/umar-farooq.jpeg" width="574" height="790" alt="Portrait of Umar Farooq, author at CryptoStocks Academy"></div></div></div></section><section class="section author-body"><div class="container"><div class="author-principles"><div><div class="section-kicker">Editorial approach</div><h2>What readers can expect.</h2></div><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Explain the mechanism before discussing an outcome.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Show formula assumptions and important omissions.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Prefer primary sources for rules and product details.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Separate education from personalised advice.</span></li></ul></div><div class="author-disclosure"><strong>Scope and transparency</strong><p>This profile does not claim a professional financial licence or independent certification. Readers should judge the work through its visible sources, assumptions, limitations and corrections process.</p><a class="text-link" href="/corrections-updates/">See corrections and updates <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div><div class="section-head author-work-head"><div><div class="section-kicker">Published work</div><h2 class="section-title">Guides by<br><em>Umar Farooq.</em></h2></div><p class="section-copy">Every academy lesson follows the same risk-first editorial standard and public corrections process.</p></div><div class="lesson-grid"><a class="lesson-card reveal" data-category="Crypto" href="/learn/crypto-for-beginners/">
   <div class="card-topline"><span class="tag">Crypto</span><span class="read-time">9 min read</span></div>
   <h3>Crypto for beginners: a grounded first lesson</h3>
   <p>Learn what cryptocurrency is, how blockchains record transactions, and what a beginner should check before taking any financial risk.</p>
@@ -204,7 +236,7 @@
   <h3>Crypto profit calculator</h3><p>Estimate crypto profit or loss, return on investment and final value from entry price, exit price, quantity and fees.</p><span class="text-link">Open tool <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span>
 </a><a class="tool-card reveal" href="/tools/position-size-calculator/">
   <span class="tool-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg></span><span class="tag">Calculator</span>
-  <h3>Trading position size calculator</h3><p>Calculate an educational position size from account balance, risk percentage, entry price and stop-loss price.</p><span class="text-link">Open tool <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span>
+  <h3>Crypto position size calculator</h3><p>Calculate crypto position size from account balance, risk percentage, entry and stop price, with an optional cost buffer and clear exposure checks.</p><span class="text-link">Open tool <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span>
 </a><a class="tool-card reveal" href="/tools/dca-and-average-price-calculator/">
   <span class="tool-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg></span><span class="tag">Calculator</span>
   <h3>DCA and average price calculator</h3><p>Calculate a blended average price after adding a second purchase, with a simple view of total cost and total units.</p><span class="text-link">Open tool <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span>
@@ -244,11 +276,22 @@
         <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
       </div>
       <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
-      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a></div>
-      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
     </div>
     <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
   </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
     <script src="/assets/app.js" defer></script>
   </body>
 </html>
