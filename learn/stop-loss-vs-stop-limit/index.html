@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
+    <script>
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
+    </script>
+    <title>Stop Loss vs Stop Limit Orders: Examples | CryptoStocks</title>
+    <meta name="description" content="Compare stop-loss and stop-limit orders with a gap example, trigger-price checklist and clear explanations of execution and non-fill risk.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://cryptostocks.site/learn/stop-loss-vs-stop-limit/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="CryptoStocks Academy">
+    <meta property="og:title" content="Stop Loss vs Stop Limit Orders: Examples | CryptoStocks">
+    <meta property="og:description" content="Compare stop-loss and stop-limit orders with a gap example, trigger-price checklist and clear explanations of execution and non-fill risk.">
+    <meta property="og:url" content="https://cryptostocks.site/learn/stop-loss-vs-stop-limit/">
+    <meta property="og:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CryptoStocks Academy market learning map">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Stop Loss vs Stop Limit Orders: Examples | CryptoStocks">
+    <meta name="twitter:description" content="Compare stop-loss and stop-limit orders with a gap example, trigger-price checklist and clear explanations of execution and non-fill risk.">
+    <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"Article","headline":"Stop loss vs stop limit: trigger, price and fill risk","description":"Compare stop-loss and stop-limit orders with a gap example, trigger-price checklist and clear explanations of execution and non-fill risk.","mainEntityOfPage":"https://cryptostocks.site/learn/stop-loss-vs-stop-limit/","image":"https://cryptostocks.site/assets/images/cryptostocks-social.webp","datePublished":"2026-10-05","dateModified":"2026-10-05","inLanguage":"en","isAccessibleForFree":true,"author":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"},"publisher":{"@id":"https://cryptostocks.site/#organization"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://cryptostocks.site/learn/"},{"@type":"ListItem","position":3,"name":"Stop loss vs stop limit: trigger, price and fill risk","item":"https://cryptostocks.site/learn/stop-loss-vs-stop-limit/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is a stop-loss a guaranteed maximum loss?","acceptedAnswer":{"@type":"Answer","text":"No. A conventional stop-market can execute beyond its trigger. Fees, gaps and partial fills may change the realised loss."}},{"@type":"Question","name":"Can the stop and limit prices differ?","acceptedAnswer":{"@type":"Answer","text":"Yes. They have different jobs: one activates the instruction, the other constrains the acceptable fill."}},{"@type":"Question","name":"Does this apply identically to every crypto platform?","acceptedAnswer":{"@type":"Answer","text":"No. Use the guide to frame questions, then check the platform’s own order rules and trigger basis."}}]}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link is-active" href="/learn/">Learn</a>
+        <a class="nav-link" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    <main id="main-content"><section class="lesson-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/learn/">Learn</a><span>/</span><span aria-current="page">Stop loss vs stop limit: trigger, price and fill risk</span></div><div class="lesson-hero-grid"><div><div class="eyebrow">Practical guide / compare the mechanics</div><h1>Stop loss vs stop limit: trigger, price and fill risk</h1><p class="lede">A stop price activates an order; it does not tell you everything about the eventual fill. This guide separates the trigger from the order that follows it, using a hypothetical sell example. Understand the difference before using a stop distance in a position-size calculation.</p><div class="lesson-meta"><span>Foundations</span><span>5 min read</span><span>Updated 2026-10-05</span><a href="/authors/umar-farooq/">By Umar Farooq</a></div></div><div class="lesson-stamp"><span>FIELD NOTE</span><strong>stop loss vs stop limit</strong><div class="stamp-lines"><i></i><i></i><i></i><i></i><i></i></div><small>Learn the language<br>then test the idea.</small></div></div></div></section>
+    <section class="section lesson-body"><div class="container lesson-layout"><article class="prose"><section class="direct-answer"><div class="section-kicker">Quick answer</div><h2>The short answer</h2><p>A conventional stop-loss becomes a market order when triggered. A stop-limit becomes a limit order, which controls the acceptable price but may remain unfilled. Neither guarantees that your loss will equal the amount in your plan.</p></section><figure class="lesson-visual reveal"><img src="/assets/visuals/stop-loss-vs-stop-limit.svg" width="960" height="540" loading="lazy" decoding="async" alt="A hypothetical entry at 50 dollars, planned stop at 47 and gap fill at 45."><figcaption>Illustrative learning diagram · Created for CryptoStocks Academy</figcaption></figure><div class="outcomes"><div class="section-kicker">After this lesson</div><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Separate a stop trigger from an execution price.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Calculate the loss if a market gaps past a stop.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Identify what can keep a stop-limit order unfilled.</span></li></ul></div>
+  <section class="content-section" id="compare-what-happens-after-the-trigger">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Compare what happens after the trigger</h2>
+      <p>The term stop-loss is sometimes used loosely. Confirm whether the platform means a stop-market or a stop-limit instruction. The table describes conventional order mechanics, not every venue implementation.</p>
+      
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Question</th><th scope="col">Stop-loss / stop-market</th><th scope="col">Stop-limit</th></tr><tr><td>After activation</td><td>Market order</td><td>Limit order</td></tr><tr><td>Price constraint</td><td>No fixed execution price</td><td>Limit price or better</td></tr><tr><td>Main trade-off</td><td>Unexpected execution price</td><td>Partial fill or no fill</td></tr><tr><td>What to verify</td><td>Trigger basis and trading session</td><td>Trigger, limit and order duration</td></tr></tbody></table></div>
+      
+      
+    </div>
+  </section>
+  <section class="content-section" id="a-price-gap-changes-the-planned-loss">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>A price gap changes the planned loss</h2>
+      <p>Imagine 10 shares bought at $50, with a sell stop at $47. The price-distance budget is 10 × ($50 − $47) = $30 before costs. That number assumes the exit actually fills at $47.</p><p>Now suppose the next available fill is $45 after a gap. Selling all 10 shares there creates a $50 price loss. The extra $20 is execution risk; the original position-size arithmetic did not guarantee the exit price.</p>
+      
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Illustrative exit</th><th scope="col">Loss per share</th><th scope="col">Loss on 10 shares</th></tr><tr><td>$47 planned exit</td><td>$3</td><td>$30</td></tr><tr><td>$46 actual exit</td><td>$4</td><td>$40</td></tr><tr><td>$45 actual exit</td><td>$5</td><td>$50</td></tr></tbody></table></div>
+      
+      <aside class="callout"><span class="callout-mark">!</span><p>This is an arithmetic example, not a forecast of gap size or a suggested stop level.</p></aside>
+    </div>
+  </section>
+  <section class="content-section" id="a-limit-can-leave-the-position-open">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>A limit can leave the position open</h2>
+      <p>Using a $47 stop and $46 sell limit means the activated order can sell only at $46 or higher. If available buyers are at $45, the instruction cannot sell there. A later recovery may permit a fill, but a continued decline can leave the exposure open.</p><p>For a buy stop-limit, the acceptable-price constraint works in the opposite direction: the limit is the maximum purchase price. Confirm both fields before submitting an order.</p>
+      
+      
+      
+      <ul class="context-links"><li><a href="/learn/market-orders-and-limit-orders/">Review market vs limit order mechanics</a></li></ul>
+      
+    </div>
+  </section>
+  <section class="content-section" id="record-the-execution-assumptions-in-your-plan">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Record the execution assumptions in your plan</h2>
+      <p>Write a one-line order note: side, quantity, stop, order type after activation, limit if any, duration and eligible session. Ask which price triggers the order and how partial fills or outages are handled.</p><p>In paper practice, record two hypothetical outcomes: an exit at the planned stop and an exit beyond it. Comparing both keeps the cash-risk estimate separate from a promise of protection.</p>
+      
+      
+      
+      <ul class="context-links"><li><a href="/tools/position-size-calculator/">Calculate units from your cash-risk budget</a></li><li><a href="/learn/position-size-from-stop-loss/">Follow the stop-loss position-size worksheet</a></li></ul>
+      
+    </div>
+  </section><section class="example-card"><div class="section-kicker">Worked example</div><h2>Choose the trade-off explicitly</h2><p>In the $50 share example, a market instruction can exit at $45 while a $46 sell limit may remain open. Your order note should state which uncertainty you are accepting and what you would review if the instruction does not fill.</p></section><section class="application-card"><div class="section-kicker">Continue this topic</div><h2>Choose the next useful step</h2><ul class="reading-path"><li><a href="/learn/market-orders-and-limit-orders/">Market order vs limit order: a clear beginner comparison</a><p>Compare market, limit and stop orders, including execution speed, price control, slippage and the questions to ask before sending one.</p></li><li><a href="/tools/position-size-calculator/">Crypto position size calculator</a><p>Calculate crypto position size from account balance, risk percentage, entry and stop price, with an optional cost buffer and clear exposure checks.</p></li><li><a href="/learn/risk-management/">Risk management in trading: cash risk, stops and exposure</a><p>Learn practical risk management in trading: cash risk, stop planning, correlation, drawdown and why survival comes before returns.</p></li></ul></section><section class="checklist-section"><div class="section-kicker">Quick review</div><h2>Carry these four ideas forward.</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Confirm the order type after activation.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Read the trigger-price definition.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Model a fill beyond the planned stop.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Review the unfilled-order scenario.</span></li></ul></section><section class="sources-section section-rule"><div class="section-kicker">Primary references</div><h2>Continue with original sources.</h2><p>These links provide definitions and current context. Product rules, regulation and network details can change, so verify time-sensitive information at the source.</p><ul><li><a href="https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-14" target="_blank" rel="noopener noreferrer">Investor.gov — Understanding order types <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li></ul></section><aside class="author-card compact"><img class="author-avatar" src="/assets/images/umar-farooq.jpeg" width="88" height="88" loading="lazy" alt="Umar Farooq, CryptoStocks Academy author"><div><span class="section-kicker">Written by</span><h2><a href="/authors/umar-farooq/">Umar Farooq</a></h2><p>Founder and educational content author.</p><a class="text-link" href="/authors/umar-farooq/">Author profile <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div></aside>
+  <section class="faq-section section-rule">
+    <div class="section-kicker">Common questions</div>
+    <h2>Before you move on</h2>
+    <div class="faq-list"><details><summary>Is a stop-loss a guaranteed maximum loss?<span>+</span></summary><p>No. A conventional stop-market can execute beyond its trigger. Fees, gaps and partial fills may change the realised loss.</p></details><details><summary>Can the stop and limit prices differ?<span>+</span></summary><p>Yes. They have different jobs: one activates the instruction, the other constrains the acceptable fill.</p></details><details><summary>Does this apply identically to every crypto platform?<span>+</span></summary><p>No. Use the guide to frame questions, then check the platform’s own order rules and trigger basis.</p></details></div>
+  </section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/market-orders-and-limit-orders/"><span class="tag">Foundations</span><h3>Market order vs limit order: a clear beginner comparison</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/position-size-calculator/"><span class="tag">Calculator</span><h3>Crypto position size calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/risk-management/"><span class="tag">Risk</span><h3>Risk management in trading: cash risk, stops and exposure</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></article><aside class="lesson-aside"><div class="aside-card sticky"><div class="section-kicker">On this page</div><ol><li><span>01</span><a href="#compare-what-happens-after-the-trigger">Compare what happens after the trigger</a></li><li><span>02</span><a href="#a-price-gap-changes-the-planned-loss">A price gap changes the planned loss</a></li><li><span>03</span><a href="#a-limit-can-leave-the-position-open">A limit can leave the position open</a></li><li><span>04</span><a href="#record-the-execution-assumptions-in-your-plan">Record the execution assumptions in your plan</a></li></ol><a class="aside-action" href="/practice/paper-trading/">Practise the process <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div><div class="aside-card aside-note"><span class="aside-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.3-2.9 7.7-7 10-4.1-2.3-7-5.7-7-10V6Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><strong>Educational only</strong><p>This page explains concepts. It does not provide personalised advice, live signals or a guaranteed outcome.</p></div></aside></div></section></main>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

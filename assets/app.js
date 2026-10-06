@@ -21,6 +21,28 @@
   };
 
   const calculate = (type, values, result, form) => {
+    if (type === "expectancy") {
+      const { winRate, averageWin, averageLoss, tradeCost } = values;
+      if (![winRate, averageWin, averageLoss, tradeCost].every(finite) || winRate > 100 || averageWin <= 0 || averageLoss <= 0) throw new Error("Enter a win rate from 0–100%, positive average wins and losses, and non-negative costs.");
+      const probability = winRate / 100;
+      const weightedWin = probability * averageWin;
+      const weightedLoss = (1 - probability) * averageLoss;
+      const gross = weightedWin - weightedLoss;
+      const net = gross - tradeCost;
+      const breakEven = 100 * (averageLoss + tradeCost) / (averageWin + averageLoss);
+      const outcome = Math.abs(net) < 1e-10 ? "The supplied averages break even" : net > 0 ? "The supplied averages have positive net expectancy" : "The supplied averages have negative net expectancy";
+      setResult(result, outcome, [
+        {label:"Gross expectancy / trade",value:signedMoney(gross)},
+        {label:"Net expectancy / trade",value:signedMoney(net)},
+        {label:"Average cost / trade",value:`$${money(tradeCost)}`},
+        {label:"Average win : loss",value:`${money(averageWin / averageLoss)} : 1`},
+        {label:"Cost-adjusted break-even",value:breakEven > 100 ? "Above 100% (unattainable)" : `${money(breakEven)}%`}
+      ], "Amounts use your input currency; $ is a display convention. Outcomes are before tax. Use gross outcomes with separate costs, or net outcomes with zero costs. Sample averages do not predict future performance.", net < 0 ? "negative" : "");
+      const scale = Math.max(weightedWin, weightedLoss, tradeCost, 1);
+      result.insertAdjacentHTML("beforeend", `<div class="expectancy-breakdown" aria-label="Expected outcome contributions"><h4>How the average is built</h4>${[["Weighted wins",weightedWin,"positive"],["Weighted losses",weightedLoss,"negative"],["Average costs",tradeCost,"negative"]].map(([label,amount,tone])=>`<div class="contribution"><span>${label}</span><div class="contribution-track"><i class="${tone}" style="width:${amount / scale * 100}%"></i></div><strong>${tone === "positive" ? "+" : "−"}$${money(amount)}</strong></div>`).join("")}</div>`);
+      return;
+    }
+
     if (type === "crypto-profit") {
       const { buyPrice, sellPrice, quantity, fees } = values;
       if (![buyPrice, sellPrice, quantity, fees].every(finite) || quantity <= 0 || buyPrice <= 0 || sellPrice < 0) throw new Error("Enter positive prices and a quantity.");
@@ -113,6 +135,7 @@
     if (type === "risk-reward") {
       const { entryPrice, stopPrice, targetPrice, capitalRisk } = values;
       if (![entryPrice, stopPrice, targetPrice, capitalRisk].every(finite) || entryPrice <= 0 || capitalRisk <= 0 || entryPrice === stopPrice) throw new Error("Enter distinct entry and stop prices plus a positive cash risk.");
+      if ((targetPrice - entryPrice) * (entryPrice - stopPrice) <= 0) throw new Error("Place the target on the profit side of entry and the stop on the loss side.");
       const risk = Math.abs(entryPrice - stopPrice);
       const reward = Math.abs(targetPrice - entryPrice);
       const ratio = reward / risk;

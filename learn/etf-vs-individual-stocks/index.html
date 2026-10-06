@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
+    <script>
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
+    </script>
+    <title>ETF vs Individual Stocks: Beginner Comparison | CryptoStocks</title>
+    <meta name="description" content="Compare ETFs and individual stocks through holdings, concentration, research and fees. Use worked examples to inspect overlap and company exposure.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://cryptostocks.site/learn/etf-vs-individual-stocks/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="CryptoStocks Academy">
+    <meta property="og:title" content="ETF vs Individual Stocks: Beginner Comparison | CryptoStocks">
+    <meta property="og:description" content="Compare ETFs and individual stocks through holdings, concentration, research and fees. Use worked examples to inspect overlap and company exposure.">
+    <meta property="og:url" content="https://cryptostocks.site/learn/etf-vs-individual-stocks/">
+    <meta property="og:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CryptoStocks Academy market learning map">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ETF vs Individual Stocks: Beginner Comparison | CryptoStocks">
+    <meta name="twitter:description" content="Compare ETFs and individual stocks through holdings, concentration, research and fees. Use worked examples to inspect overlap and company exposure.">
+    <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"Article","headline":"ETF vs individual stocks: holdings, overlap and costs","description":"Compare ETFs and individual stocks through holdings, concentration, research and fees. Use worked examples to inspect overlap and company exposure.","mainEntityOfPage":"https://cryptostocks.site/learn/etf-vs-individual-stocks/","image":"https://cryptostocks.site/assets/images/cryptostocks-social.webp","datePublished":"2026-10-05","dateModified":"2026-10-05","inLanguage":"en","isAccessibleForFree":true,"author":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"},"publisher":{"@id":"https://cryptostocks.site/#organization"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://cryptostocks.site/learn/"},{"@type":"ListItem","position":3,"name":"ETF vs individual stocks: holdings, overlap and costs","item":"https://cryptostocks.site/learn/etf-vs-individual-stocks/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does every ETF diversify company risk?","acceptedAnswer":{"@type":"Answer","text":"No. Narrowly focused and single-stock products can remain concentrated. Inspect the holdings and mandate."}},{"@type":"Question","name":"Can an ETF and a direct stock overlap?","acceptedAnswer":{"@type":"Answer","text":"Yes. Calculate the fund’s indirect exposure and add it to your direct holding."}},{"@type":"Question","name":"Does this guide recommend an ETF?","acceptedAnswer":{"@type":"Answer","text":"No. It provides comparison questions and hypothetical arithmetic, without selecting a security for your circumstances."}}]}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link is-active" href="/learn/">Learn</a>
+        <a class="nav-link" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    <main id="main-content"><section class="lesson-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/learn/">Learn</a><span>/</span><span aria-current="page">ETF vs individual stocks: holdings, overlap and costs</span></div><div class="lesson-hero-grid"><div><div class="eyebrow">Practical guide / compare the mechanics</div><h1>ETF vs individual stocks: holdings, overlap and costs</h1><p class="lede">An ETF is a fund structure, not a promise of diversification. An individual stock is exposure to one company. To compare them usefully, look through the label to the holdings, weights and costs. This page offers a research worksheet rather than a list of funds to buy.</p><div class="lesson-meta"><span>Stocks</span><span>5 min read</span><span>Updated 2026-10-05</span><a href="/authors/umar-farooq/">By Umar Farooq</a></div></div><div class="lesson-stamp"><span>FIELD NOTE</span><strong>ETF vs individual stocks</strong><div class="stamp-lines"><i></i><i></i><i></i><i></i><i></i></div><small>Learn the language<br>then test the idea.</small></div></div></div></section>
+    <section class="section lesson-body"><div class="container lesson-layout"><article class="prose"><section class="direct-answer"><div class="section-kicker">Quick answer</div><h2>The short answer</h2><p>An individual stock represents ownership in one company. An ETF share represents an interest in a fund. A broad fund can spread company exposure, while a narrow or single-stock ETF may remain concentrated.</p></section><figure class="lesson-visual reveal"><img src="/assets/visuals/etf-vs-individual-stocks.svg" width="960" height="540" loading="lazy" decoding="async" alt="Company A exposure combines 400 dollars of direct shares and 60 dollars inside a fund, for 46 percent of the portfolio."><figcaption>Illustrative learning diagram · Created for CryptoStocks Academy</figcaption></figure><div class="outcomes"><div class="section-kicker">After this lesson</div><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Compare a company holding with fund holdings.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Calculate an illustrative company weight across investments.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Identify fund costs separately from trading costs.</span></li></ul></div>
+  <section class="content-section" id="compare-the-research-job">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Compare the research job</h2>
+      <p>Both can lose value. A familiar fund name says little about its largest exposures; a familiar company name says little about its valuation. Read the appropriate disclosures before comparing a price chart.</p>
+      
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Question</th><th scope="col">Individual stock</th><th scope="col">ETF</th></tr><tr><td>What drives the exposure?</td><td>Company business and finances</td><td>Fund objective and holdings</td></tr><tr><td>Main disclosure to read</td><td>Company filings</td><td>Prospectus and holdings</td></tr><tr><td>Concentration check</td><td>Company weight in portfolio</td><td>Underlying companies and sectors</td></tr><tr><td>Ongoing fund expense</td><td>No fund expense ratio for the share itself</td><td>Check the expense ratio</td></tr></tbody></table></div>
+      
+      
+    </div>
+  </section>
+  <section class="content-section" id="work-through-a-simple-concentration-example">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Work through a simple concentration example</h2>
+      <p>Suppose a fictional $1,000 portfolio is invested entirely in Company A. A 20% fall reduces its value by $200. Now imagine a fund with 20 equal company weights, including A. If only A falls 20% and all other prices stay unchanged, the same $1,000 invested in that hypothetical basket loses $10.</p><p>This example isolates one company move. It does not model a broad market decline, unequal weights, dividends or fund expenses. If every holding falls together, the basket can still lose heavily.</p>
+      <div class="formula"><span>Working model</span><strong>Company effect on portfolio ≈ portfolio value × company weight × company return</strong></div>
+      
+      
+      <ul class="context-links"><li><a href="/learn/portfolio-diversification/">Study shared drivers and diversification</a></li></ul>
+      
+    </div>
+  </section>
+  <section class="content-section" id="combine-direct-and-indirect-holdings">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Combine direct and indirect holdings</h2>
+      <p>Imagine $600 in a fictional ETF that allocates 10% to Company A, plus $400 directly in A. The indirect exposure is $60, so total A exposure is $460 of the $1,000 portfolio, or 46%. Two tickers have not created two independent risks.</p><p>Repeat the arithmetic for other large holdings and sectors. Use holdings from the same reporting date where possible; old weights can misstate the current overlap.</p>
+      
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Holding</th><th scope="col">Amount invested</th><th scope="col">Company A exposure</th></tr><tr><td>ETF with 10% A weight</td><td>$600</td><td>$60</td></tr><tr><td>Direct Company A shares</td><td>$400</td><td>$400</td></tr><tr><td>Total</td><td>$1,000</td><td>$460 / $1,000 = 46%</td></tr></tbody></table></div>
+      
+      
+    </div>
+  </section>
+  <section class="content-section" id="read-fund-expenses-and-trading-costs-separately">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Read fund expenses and trading costs separately</h2>
+      <p>Funds deduct operating expenses from their assets. ETF investors can also encounter spreads, commissions and prices above or below net asset value. The prospectus fee table and broker schedule answer different cost questions.</p><p>For a simple scale check, 0.20% of a constant $5,000 balance is $10 per year. Actual expense deductions occur within a changing fund value, so this is not an invoice or a precise future cost forecast.</p>
+      
+      
+      
+      <ul class="context-links"><li><a href="/tools/investment-fee-calculator/">Explore a constant-rate fee comparison</a></li></ul>
+      <aside class="callout"><span class="callout-mark">!</span><p>A lower expense ratio does not make unlike funds equivalent. Compare mandate, holdings and risk alongside cost.</p></aside>
+    </div>
+  </section><section class="example-card"><div class="section-kicker">Worked example</div><h2>Build a comparison note without predicting returns</h2><p>Write the investment objective, top exposures, total Company A weight, disclosure date and cost layers. Then state which evidence would cause you to revisit the comparison. Leave future return unknown rather than filling it with past performance.</p></section><section class="application-card"><div class="section-kicker">Continue this topic</div><h2>Choose the next useful step</h2><ul class="reading-path"><li><a href="/learn/stocks-for-beginners/">Stocks for beginners: what a share represents</a><p>Learn stock market basics, how shares relate to businesses, what an exchange does and which questions belong in beginner research.</p></li><li><a href="/learn/portfolio-diversification/">Portfolio diversification: holdings, overlap and shared risks</a><p>Learn what diversification can and cannot do, how shared drivers create concentration, and how to document a simple allocation framework.</p></li><li><a href="/tools/investment-fee-calculator/">Investment fee calculator</a><p>Compare a constant-return investment scenario before and after an annual fee, including contributions and the estimated long-term value difference.</p></li></ul></section><section class="checklist-section"><div class="section-kicker">Quick review</div><h2>Carry these four ideas forward.</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Read the actual holdings.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Add direct and indirect exposure.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Separate fund and trading costs.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Compare investment objectives.</span></li></ul></section><section class="sources-section section-rule"><div class="section-kicker">Primary references</div><h2>Continue with original sources.</h2><p>These links provide definitions and current context. Product rules, regulation and network details can change, so verify time-sensitive information at the source.</p><ul><li><a href="https://www.investor.gov/introduction-investing/investing-basics/investment-products/mutual-funds-and-exchange-traded-2" target="_blank" rel="noopener noreferrer">Investor.gov — Exchange-traded funds <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li><li><a href="https://www.investor.gov/introduction-investing/getting-started/asset-allocation" target="_blank" rel="noopener noreferrer">Investor.gov — Asset allocation and diversification <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li><li><a href="https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/mutual-fund-and-etf-fees-and-expenses-investor-bulletin" target="_blank" rel="noopener noreferrer">Investor.gov — Fund fees and expenses <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li></ul></section><aside class="author-card compact"><img class="author-avatar" src="/assets/images/umar-farooq.jpeg" width="88" height="88" loading="lazy" alt="Umar Farooq, CryptoStocks Academy author"><div><span class="section-kicker">Written by</span><h2><a href="/authors/umar-farooq/">Umar Farooq</a></h2><p>Founder and educational content author.</p><a class="text-link" href="/authors/umar-farooq/">Author profile <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div></aside>
+  <section class="faq-section section-rule">
+    <div class="section-kicker">Common questions</div>
+    <h2>Before you move on</h2>
+    <div class="faq-list"><details><summary>Does every ETF diversify company risk?<span>+</span></summary><p>No. Narrowly focused and single-stock products can remain concentrated. Inspect the holdings and mandate.</p></details><details><summary>Can an ETF and a direct stock overlap?<span>+</span></summary><p>Yes. Calculate the fund’s indirect exposure and add it to your direct holding.</p></details><details><summary>Does this guide recommend an ETF?<span>+</span></summary><p>No. It provides comparison questions and hypothetical arithmetic, without selecting a security for your circumstances.</p></details></div>
+  </section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/stocks-for-beginners/"><span class="tag">Stocks</span><h3>Stocks for beginners: what a share represents</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/portfolio-diversification/"><span class="tag">Portfolio</span><h3>Portfolio diversification: holdings, overlap and shared risks</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/investment-fee-calculator/"><span class="tag">Portfolio</span><h3>Investment fee calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></article><aside class="lesson-aside"><div class="aside-card sticky"><div class="section-kicker">On this page</div><ol><li><span>01</span><a href="#compare-the-research-job">Compare the research job</a></li><li><span>02</span><a href="#work-through-a-simple-concentration-example">Work through a simple concentration example</a></li><li><span>03</span><a href="#combine-direct-and-indirect-holdings">Combine direct and indirect holdings</a></li><li><span>04</span><a href="#read-fund-expenses-and-trading-costs-separately">Read fund expenses and trading costs separately</a></li></ol><a class="aside-action" href="/practice/paper-trading/">Practise the process <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div><div class="aside-card aside-note"><span class="aside-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.3-2.9 7.7-7 10-4.1-2.3-7-5.7-7-10V6Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><strong>Educational only</strong><p>This page explains concepts. It does not provide personalised advice, live signals or a guaranteed outcome.</p></div></aside></div></section></main>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

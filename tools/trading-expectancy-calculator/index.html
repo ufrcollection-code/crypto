@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
+    <script>
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
+    </script>
+    <title>Trading Expectancy Calculator: Win Rate &amp; Costs | CryptoStocks</title>
+    <meta name="description" content="Calculate average trading expectancy, cost-adjusted break-even win rate and payoff ratio from win rate, average win, average loss and costs per trade.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://cryptostocks.site/tools/trading-expectancy-calculator/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CryptoStocks Academy">
+    <meta property="og:title" content="Trading Expectancy Calculator: Win Rate &amp; Costs | CryptoStocks">
+    <meta property="og:description" content="Calculate average trading expectancy, cost-adjusted break-even win rate and payoff ratio from win rate, average win, average loss and costs per trade.">
+    <meta property="og:url" content="https://cryptostocks.site/tools/trading-expectancy-calculator/">
+    <meta property="og:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CryptoStocks Academy market learning map">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Trading Expectancy Calculator: Win Rate &amp; Costs | CryptoStocks">
+    <meta name="twitter:description" content="Calculate average trading expectancy, cost-adjusted break-even win rate and payoff ratio from win rate, average win, average loss and costs per trade.">
+    <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"WebApplication","name":"Trading Expectancy Calculator: Win Rate & Costs | CryptoStocks","description":"Calculate average trading expectancy, cost-adjusted break-even win rate and payoff ratio from win rate, average win, average loss and costs per trade.","url":"https://cryptostocks.site/tools/trading-expectancy-calculator/","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"},"applicationCategory":"EducationalApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://cryptostocks.site/tools/"},{"@type":"ListItem","position":3,"name":"Trading expectancy calculator","item":"https://cryptostocks.site/tools/trading-expectancy-calculator/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can a strategy with less than 50% wins have positive expectancy?","acceptedAnswer":{"@type":"Answer","text":"Yes in arithmetic, if average wins are large enough relative to losses and costs. That does not establish future profitability."}},{"@type":"Question","name":"What if my trade results are already net?","acceptedAnswer":{"@type":"Answer","text":"Enter zero costs separately. A second subtraction would duplicate the charges."}},{"@type":"Question","name":"Does positive expectancy guarantee growth?","acceptedAnswer":{"@type":"Answer","text":"No. Inputs may be uncertain, and the sequence, size and dependence of outcomes are outside this model."}}]}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link" href="/learn/">Learn</a>
+        <a class="nav-link is-active" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    <main id="main-content"><section class="tool-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span aria-current="page">Trading expectancy calculator</span></div><div class="tool-hero-grid"><div><div class="eyebrow">Trading journal / average outcome</div><h1>Trading expectancy calculator</h1><p class="lede">Use the average size of wins and losses, not win rate alone, to inspect a sample or a hypothetical strategy. This local calculator separates gross outcome from a fixed average cost per trade. It does not predict your next result.</p><div class="lesson-meta"><span>Reviewed 2026-10-05</span><a href="/authors/umar-farooq/">Methodology by Umar Farooq</a></div></div><div class="tool-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg><span>Runs in your browser</span><small>No account · No API key</small></div></div></div></section>
+    <section class="section tool-main"><div class="container tool-layout"><article class="calculator-card"><div class="calculator-head"><div><div class="section-kicker">Input panel</div><h2>Try an example</h2></div><span class="calculator-status"><i></i> local only</span></div><form class="calculator-form" data-calculator="expectancy"><div class="field-grid"><label class="field"><span>Win rate (%)</span><input type="number" inputmode="decimal" step="any" data-field="winRate" value="40" aria-label="Win rate (%)"><small>From 0 to 100; excludes no-outcome trades</small></label><label class="field"><span>Average gross win</span><input type="number" inputmode="decimal" step="any" data-field="averageWin" value="150" aria-label="Average gross win"><small>Positive amount before costs, in your currency</small></label><label class="field"><span>Average gross loss</span><input type="number" inputmode="decimal" step="any" data-field="averageLoss" value="75" aria-label="Average gross loss"><small>Positive magnitude before costs</small></label><label class="field"><span>Average total cost per trade</span><input type="number" inputmode="decimal" step="any" data-field="tradeCost" value="5" aria-label="Average total cost per trade"><small>Round-trip fees and execution costs not already included</small></label></div><button class="button solid full-button" type="submit">Calculate result <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></button></form><div class="result-panel" data-result aria-live="polite"><div class="result-kicker">Result appears here</div><p>Enter values above, then calculate. Use the output to inspect the assumptions—not to predict a return.</p></div></article><div class="tool-explainer"><div class="section-kicker">How to use it</div><h2>Numbers are clearer when the assumptions are visible.</h2><p>Start with the default example. Change one input at a time and notice which part of the result moves. Then read the explanation below before using any real-world number.</p><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Use your account currency consistently.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Include costs and uncertainty outside the simple model.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Verify the product’s own contract or fee rules.</span></li></ul></div></div></section>
+    <section class="section content-section-wrap"><div class="container narrow-content"><section class="direct-answer"><div class="section-kicker">Quick answer</div><h2>The short answer</h2><p>Net expectancy per trade equals win probability × average win minus loss probability × average loss minus average costs. Use amounts in one currency; enter gross wins and losses if costs are entered separately.</p></section>
+  <section class="content-section" id="input-reference-and-starting-values">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Input reference and starting values</h2>
+      
+      
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Input</th><th scope="col">Meaning</th><th scope="col">Starting value</th></tr><tr><td>Win rate (%)</td><td>From 0 to 100; excludes no-outcome trades</td><td>40</td></tr><tr><td>Average gross win</td><td>Positive amount before costs, in your currency</td><td>150</td></tr><tr><td>Average gross loss</td><td>Positive magnitude before costs</td><td>75</td></tr><tr><td>Average total cost per trade</td><td>Round-trip fees and execution costs not already included</td><td>5</td></tr></tbody></table></div>
+      
+      
+    </div>
+  </section>
+  <section class="content-section" id="enter-comparable-outcomes">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Enter comparable outcomes</h2>
+      <p>Use one setup and a consistent accounting method. Divide winning trades by resolved trades to get the win rate, then separately average the positive outcomes and the absolute losing amounts.</p><p>The model has two outcome groups: wins and losses. Exclude scratches consistently, or include them in the non-winning group and calculate the average loss across that entire group, with zero assigned to scratches. State which method you used in your journal.</p>
+      
+      
+      
+      <ul class="context-links"><li><a href="/learn/trading-journal/">Create a consistent trading journal</a></li></ul>
+      
+    </div>
+  </section>
+  <section class="content-section" id="follow-the-default-calculation">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Follow the default calculation</h2>
+      <p>At 40% wins, a $150 average gross win, a $75 average gross loss and $5 average cost, gross expectancy is 0.40 × $150 − 0.60 × $75 = $15. Subtracting $5 gives $10 net per trade.</p><p>The cost-adjusted break-even win rate is ($75 + $5) ÷ ($150 + $75) = 35.56%. If costs exceed the average win, even 100% wins cannot create positive net expectancy under those assumptions.</p>
+      <div class="formula"><span>Working model</span><strong>E = p × W − (1 − p) × L − C; break-even p = (L + C) ÷ (W + L)</strong></div>
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Component</th><th scope="col">Calculation</th><th scope="col">Contribution</th></tr><tr><td>Winning outcomes</td><td>40% × $150</td><td>+$60</td></tr><tr><td>Losing outcomes</td><td>60% × $75</td><td>−$45</td></tr><tr><td>Average costs</td><td>Per resolved trade</td><td>−$5</td></tr><tr><td>Net average</td><td>60 − 45 − 5</td><td>+$10</td></tr></tbody></table></div>
+      
+      
+    </div>
+  </section>
+  <section class="content-section" id="sensitivity-is-more-useful-than-one-result">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Sensitivity is more useful than one result</h2>
+      <p>A win rate can stay unchanged while execution or exits reverse the arithmetic. Change one input at a time to identify which assumption carries the result. These are hypothetical averages, not observations about your account.</p>
+      
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Scenario at 40% wins</th><th scope="col">Average win</th><th scope="col">Average loss</th><th scope="col">Cost</th><th scope="col">Net expectancy</th></tr><tr><td>Default</td><td>$150</td><td>$75</td><td>$5</td><td>+$10</td></tr><tr><td>Smaller average winners</td><td>$120</td><td>$75</td><td>$5</td><td>−$2</td></tr><tr><td>Higher average costs</td><td>$150</td><td>$75</td><td>$20</td><td>−$5</td></tr></tbody></table></div>
+      <ul class="context-links"><li><a href="/tools/risk-reward-calculator/">Compare planned reward with risk</a></li><li><a href="/learn/crypto-slippage-explained/">Review crypto slippage arithmetic</a></li></ul>
+      
+    </div>
+  </section>
+  <section class="content-section" id="keep-sample-estimates-separate-from-future-performance">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Keep sample estimates separate from future performance</h2>
+      <p>An observed positive average does not establish that a process will keep working. Small samples, unusual market conditions, missing losses and changing position size can distort an estimate. This calculator does not produce a confidence interval or model a sequence of trades.</p><p>If your recorded outcomes are already net of fees and execution costs, enter zero in the separate cost field to avoid subtraction twice. For variable risk sizes, a cash average may mix the quality of a setup with changes in exposure; use consistent units for the comparison.</p>
+      
+      
+      
+      <ul class="context-links"><li><a href="/learn/beginner-paper-trading-plan/">Start a recorded paper-trading sample</a></li></ul>
+      <aside class="callout"><span class="callout-mark">!</span><p>Expectancy is an average under supplied assumptions. It does not estimate loss streaks, drawdown, tax or the probability of future profit.</p></aside>
+    </div>
+  </section><section class="sources-section section-rule"><div class="section-kicker">Primary references</div><h2>Continue with original sources.</h2><p>These links provide definitions and current context. Product rules, regulation and network details can change, so verify time-sensitive information at the source.</p><ul><li><a href="https://www.investor.gov/introduction-investing/investing-basics/what-risk" target="_blank" rel="noopener noreferrer">Investor.gov — Investment risk <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li><li><a href="https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/types-orders" target="_blank" rel="noopener noreferrer">Investor.gov — Types of orders <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li></ul></section><aside class="author-card compact"><img class="author-avatar" src="/assets/images/umar-farooq.jpeg" width="88" height="88" loading="lazy" alt="Umar Farooq, CryptoStocks Academy author"><div><span class="section-kicker">Written by</span><h2><a href="/authors/umar-farooq/">Umar Farooq</a></h2><p>Founder and educational content author.</p><a class="text-link" href="/authors/umar-farooq/">Author profile <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div></aside>
+  <section class="faq-section section-rule">
+    <div class="section-kicker">Common questions</div>
+    <h2>Before you move on</h2>
+    <div class="faq-list"><details><summary>Can a strategy with less than 50% wins have positive expectancy?<span>+</span></summary><p>Yes in arithmetic, if average wins are large enough relative to losses and costs. That does not establish future profitability.</p></details><details><summary>What if my trade results are already net?<span>+</span></summary><p>Enter zero costs separately. A second subtraction would duplicate the charges.</p></details><details><summary>Does positive expectancy guarantee growth?<span>+</span></summary><p>No. Inputs may be uncertain, and the sequence, size and dependence of outcomes are outside this model.</p></details></div>
+  </section><section class="application-card"><div class="section-kicker">Continue this topic</div><h2>Choose the next useful step</h2><ul class="reading-path"><li><a href="/learn/risk-reward-ratio/">Risk-reward ratio: compare the downside and upside</a><p>Learn how risk-reward ratio, break-even win rate and trade expectancy work together, with practical examples and common mistakes.</p></li><li><a href="/learn/trading-journal/">How to keep a trading journal that teaches you something</a><p>Create a useful trading journal with pre-trade reasoning, risk, execution notes, screenshots and post-trade review prompts.</p></li><li><a href="/tools/drawdown-recovery-calculator/">Drawdown recovery calculator</a><p>Calculate the percentage gain required to recover from a portfolio drawdown and see why larger losses require disproportionately larger gains.</p></li></ul></section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/risk-reward-ratio/"><span class="tag">Risk</span><h3>Risk-reward ratio: compare the downside and upside</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/trading-journal/"><span class="tag">Process</span><h3>How to keep a trading journal that teaches you something</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/drawdown-recovery-calculator/"><span class="tag">Risk tool</span><h3>Drawdown recovery calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></div></section></main>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

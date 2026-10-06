@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
+    <script>
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
+    </script>
+    <title>Crypto Slippage Explained: Formula &amp; Examples | CryptoStocks</title>
+    <meta name="description" content="Learn how crypto slippage differs from spread and fees. Calculate buy and sell slippage using average fill prices and an order-book example.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://cryptostocks.site/learn/crypto-slippage-explained/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="CryptoStocks Academy">
+    <meta property="og:title" content="Crypto Slippage Explained: Formula &amp; Examples | CryptoStocks">
+    <meta property="og:description" content="Learn how crypto slippage differs from spread and fees. Calculate buy and sell slippage using average fill prices and an order-book example.">
+    <meta property="og:url" content="https://cryptostocks.site/learn/crypto-slippage-explained/">
+    <meta property="og:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CryptoStocks Academy market learning map">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Crypto Slippage Explained: Formula &amp; Examples | CryptoStocks">
+    <meta name="twitter:description" content="Learn how crypto slippage differs from spread and fees. Calculate buy and sell slippage using average fill prices and an order-book example.">
+    <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"Article","headline":"Crypto slippage explained: measure the cost of a fill","description":"Learn how crypto slippage differs from spread and fees. Calculate buy and sell slippage using average fill prices and an order-book example.","mainEntityOfPage":"https://cryptostocks.site/learn/crypto-slippage-explained/","image":"https://cryptostocks.site/assets/images/cryptostocks-social.webp","datePublished":"2026-10-05","dateModified":"2026-10-05","inLanguage":"en","isAccessibleForFree":true,"author":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"},"publisher":{"@id":"https://cryptostocks.site/#organization"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cryptostocks.site/"},{"@type":"ListItem","position":2,"name":"Learn","item":"https://cryptostocks.site/learn/"},{"@type":"ListItem","position":3,"name":"Crypto slippage explained: measure the cost of a fill","item":"https://cryptostocks.site/learn/crypto-slippage-explained/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can slippage be favourable?","acceptedAnswer":{"@type":"Answer","text":"Yes. A buy below the reference or a sell above it is favourable execution under the formulas here."}},{"@type":"Question","name":"Is a slippage setting an exchange-wide fee?","acceptedAnswer":{"@type":"Answer","text":"No. It is an execution constraint for certain products; its meaning and operation depend on the venue."}},{"@type":"Question","name":"Should I subtract slippage again after using actual fills?","acceptedAnswer":{"@type":"Answer","text":"No. If the actual fills already include the execution difference, subtracting it again duplicates that cost."}}]}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link is-active" href="/learn/">Learn</a>
+        <a class="nav-link" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    <main id="main-content"><section class="lesson-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/learn/">Learn</a><span>/</span><span aria-current="page">Crypto slippage explained: measure the cost of a fill</span></div><div class="lesson-hero-grid"><div><div class="eyebrow">Practical guide / compare the mechanics</div><h1>Crypto slippage explained: measure the cost of a fill</h1><p class="lede">The price on a screen and the price of your completed order can differ. To measure that difference, choose a reference quote, record the actual average fill, and keep explicit fees separate. These examples use invented prices rather than live exchange data.</p><div class="lesson-meta"><span>Crypto</span><span>5 min read</span><span>Updated 2026-10-05</span><a href="/authors/umar-farooq/">By Umar Farooq</a></div></div><div class="lesson-stamp"><span>FIELD NOTE</span><strong>crypto slippage explained</strong><div class="stamp-lines"><i></i><i></i><i></i><i></i><i></i></div><small>Learn the language<br>then test the idea.</small></div></div></div></section>
+    <section class="section lesson-body"><div class="container lesson-layout"><article class="prose"><section class="direct-answer"><div class="section-kicker">Quick answer</div><h2>The short answer</h2><p>Slippage is the difference between the price you expected and the price at which an order actually executes. A higher buy fill or a lower sell fill is adverse slippage. It is separate from an explicit trading fee.</p></section><figure class="lesson-visual reveal"><img src="/assets/visuals/crypto-slippage-explained.svg" width="960" height="540" loading="lazy" decoding="async" alt="Three fills cost 100, 202 and 102 dollars; four units cost 404 dollars in total."><figcaption>Illustrative learning diagram · Created for CryptoStocks Academy</figcaption></figure><div class="outcomes"><div class="section-kicker">After this lesson</div><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Measure adverse slippage for buys and sells.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Use a weighted average when an order has several fills.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Distinguish execution cost from explicit fees.</span></li></ul></div>
+  <section class="content-section" id="spread-slippage-and-fees-measure-different-things">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Spread, slippage and fees measure different things</h2>
+      <p>Use a consistent reference. Comparing a buy fill to the mid-price includes the effect of crossing the spread; comparing it to the quoted ask answers a different question. Do not count the same cost twice when combining an estimate.</p>
+      
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Term</th><th scope="col">What it compares</th><th scope="col">How to inspect it</th></tr><tr><td>Spread</td><td>Best ask minus best bid</td><td>Record both quotes at one time</td></tr><tr><td>Slippage</td><td>Reference price vs actual average fill</td><td>Save quote time and fill details</td></tr><tr><td>Trading fee</td><td>Venue charge for execution</td><td>Read the trade confirmation</td></tr></tbody></table></div>
+      
+      
+    </div>
+  </section>
+  <section class="content-section" id="calculate-adverse-buy-and-sell-slippage">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Calculate adverse buy and sell slippage</h2>
+      <p>A buy reference of $100 and a fill of $100.60 gives 0.60% adverse slippage. On 5 units, the extra purchase cost is 5 × $0.60 = $3 before fees.</p><p>A sell reference of $100 and a fill of $99.40 also gives 0.60% adverse slippage. On 5 units, you receive $3 less than at the reference. A negative value under these formulas means favourable execution, not an extra cost.</p>
+      <div class="formula"><span>Working model</span><strong>Buy: (fill − reference) ÷ reference × 100%; sell: (reference − fill) ÷ reference × 100%</strong></div>
+      
+      
+      
+      
+    </div>
+  </section>
+  <section class="content-section" id="several-fills-need-one-weighted-price">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Several fills need one weighted price</h2>
+      <p>Suppose an order buys 4 units: 1 at $100, 2 at $101 and 1 at $102. Total purchase value is $404, so the average fill is $101. Against a $100 reference, adverse slippage is 1% and the additional cost is $4.</p><p>Simply averaging the three listed prices can be misleading when quantities differ. Always multiply each fill price by its units, sum the values and divide by total units.</p>
+      
+      
+      <div class="table-wrap"><table><tbody><tr><th scope="col">Fill</th><th scope="col">Units</th><th scope="col">Value</th></tr><tr><td>$100</td><td>1</td><td>$100</td></tr><tr><td>$101</td><td>2</td><td>$202</td></tr><tr><td>$102</td><td>1</td><td>$102</td></tr><tr><td>Weighted total</td><td>4</td><td>$404 / 4 = $101</td></tr></tbody></table></div>
+      <ul class="context-links"><li><a href="/tools/dca-and-average-price-calculator/">Practise weighted-average arithmetic</a></li></ul>
+      
+    </div>
+  </section>
+  <section class="content-section" id="inspect-execution-conditions-before-modelling-profit">
+    <div class="section-marker" aria-hidden="true"></div>
+    <div class="content-section-body">
+      <h2>Inspect execution conditions before modelling profit</h2>
+      <p>Low liquidity can increase slippage. A quote describes currently available prices, not unlimited quantity at one level. Fast price changes can also make a recorded quote stale.</p><p>A limit order constrains price but can miss the trade or fill only partly. Smaller orders can still face adverse execution. In a journal, preserve the side, order size, quote timestamp, average fill and explicit fees rather than recording only the last traded price.</p>
+      
+      
+      
+      <ul class="context-links"><li><a href="/learn/market-orders-and-limit-orders/">Compare order types</a></li><li><a href="/tools/crypto-profit-calculator/">Calculate profit from actual fill prices</a></li></ul>
+      <aside class="callout"><span class="callout-mark">!</span><p>Slippage-tolerance settings and exchange safeguards vary. Check the documentation for the specific product instead of assuming a universal percentage.</p></aside>
+    </div>
+  </section><section class="example-card"><div class="section-kicker">Worked example</div><h2>Profit using actual fills</h2><p>Buy 5 units at $100.60 and sell at $110, with a hypothetical 0.1% fee on each side. Gross gain is $47; fees are $1.053; net gain is $45.947. The buy slippage is already inside the $100.60 fill, so do not subtract the same $3 again.</p></section><section class="application-card"><div class="section-kicker">Continue this topic</div><h2>Choose the next useful step</h2><ul class="reading-path"><li><a href="/learn/crypto-profit-after-fees/">How to calculate crypto profit after trading fees</a><p>Work through a crypto profit example with buy and sell fees, then learn which network costs and taxes a simple calculator leaves out.</p></li><li><a href="/tools/crypto-profit-calculator/">Crypto profit calculator</a><p>Estimate crypto profit or loss, return on investment and final value from entry price, exit price, quantity and fees.</p></li><li><a href="/learn/market-orders-and-limit-orders/">Market order vs limit order: a clear beginner comparison</a><p>Compare market, limit and stop orders, including execution speed, price control, slippage and the questions to ask before sending one.</p></li></ul></section><section class="checklist-section"><div class="section-kicker">Quick review</div><h2>Carry these four ideas forward.</h2><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Choose and timestamp the reference quote.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Use the weighted average fill.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Keep fees separate from slippage.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Avoid double-counting the spread.</span></li></ul></section><section class="sources-section section-rule"><div class="section-kicker">Primary references</div><h2>Continue with original sources.</h2><p>These links provide definitions and current context. Product rules, regulation and network details can change, so verify time-sensitive information at the source.</p><ul><li><a href="https://help.coinbase.com/en-gb/coinbase/trading-and-funding/buying-selling-or-converting-crypto/understanding-slippage-and-spread" target="_blank" rel="noopener noreferrer">Coinbase — Understanding slippage and spread <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li><li><a href="https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-14" target="_blank" rel="noopener noreferrer">Investor.gov — Understanding order types <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="m19 5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></li></ul></section><aside class="author-card compact"><img class="author-avatar" src="/assets/images/umar-farooq.jpeg" width="88" height="88" loading="lazy" alt="Umar Farooq, CryptoStocks Academy author"><div><span class="section-kicker">Written by</span><h2><a href="/authors/umar-farooq/">Umar Farooq</a></h2><p>Founder and educational content author.</p><a class="text-link" href="/authors/umar-farooq/">Author profile <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div></aside>
+  <section class="faq-section section-rule">
+    <div class="section-kicker">Common questions</div>
+    <h2>Before you move on</h2>
+    <div class="faq-list"><details><summary>Can slippage be favourable?<span>+</span></summary><p>Yes. A buy below the reference or a sell above it is favourable execution under the formulas here.</p></details><details><summary>Is a slippage setting an exchange-wide fee?<span>+</span></summary><p>No. It is an execution constraint for certain products; its meaning and operation depend on the venue.</p></details><details><summary>Should I subtract slippage again after using actual fills?<span>+</span></summary><p>No. If the actual fills already include the execution difference, subtracting it again duplicates that cost.</p></details></div>
+  </section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/crypto-profit-after-fees/"><span class="tag">Crypto</span><h3>How to calculate crypto profit after trading fees</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/crypto-profit-calculator/"><span class="tag">Calculator</span><h3>Crypto profit calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/learn/market-orders-and-limit-orders/"><span class="tag">Foundations</span><h3>Market order vs limit order: a clear beginner comparison</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></article><aside class="lesson-aside"><div class="aside-card sticky"><div class="section-kicker">On this page</div><ol><li><span>01</span><a href="#spread-slippage-and-fees-measure-different-things">Spread, slippage and fees measure different things</a></li><li><span>02</span><a href="#calculate-adverse-buy-and-sell-slippage">Calculate adverse buy and sell slippage</a></li><li><span>03</span><a href="#several-fills-need-one-weighted-price">Several fills need one weighted price</a></li><li><span>04</span><a href="#inspect-execution-conditions-before-modelling-profit">Inspect execution conditions before modelling profit</a></li></ol><a class="aside-action" href="/practice/paper-trading/">Practise the process <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a></div><div class="aside-card aside-note"><span class="aside-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.3-2.9 7.7-7 10-4.1-2.3-7-5.7-7-10V6Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></span><strong>Educational only</strong><p>This page explains concepts. It does not provide personalised advice, live signals or a guaranteed outcome.</p></div></aside></div></section></main>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>

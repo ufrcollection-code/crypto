@@ -621,3 +621,17 @@ td { color: var(--ink-soft); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* v7: readable next steps and responsive contribution chart */
+.context-links, .reading-path { padding-left: 1.25rem; }
+.context-links li, .reading-path li { margin: .85rem 0; }
+.context-links a, .reading-path a { text-decoration: underline; text-underline-offset: .2em; }
+.reading-path p { margin: .35rem 0 0; font-size: .95rem; }
+.expectancy-breakdown { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid currentColor; }
+.contribution { display: grid; grid-template-columns: 1fr 1.2fr auto; align-items: center; gap: .75rem; margin: .85rem 0; font-size: .85rem; }
+.contribution-track { background: rgba(127,127,127,.15); border-radius: .25rem; height: .55rem; overflow: hidden; }
+.contribution-track i { display: block; height: 100%; }
+.contribution-track .positive { background: #64816d; }
+.contribution-track .negative { background: #ae654b; }
+.contribution strong { font-variant-numeric: tabular-nums; }
+@media(max-width: 600px) { .contribution { grid-template-columns: 1fr auto; } .contribution-track { grid-column: 1 / -1; grid-row: auto; } .contribution strong { grid-column: 2; grid-row: auto; } }
