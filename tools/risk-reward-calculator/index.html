@@ -86,6 +86,24 @@
       </nav>
     </div>
   </header>
+    
+    <aside class="adsterra-placement adsterra-banner" aria-label="Advertisement">
+      <p class="adsterra-label">Advertisement</p>
+      <div class="adsterra-banner-scroll" role="region" aria-label="468 by 60 advertisement; scroll horizontally on small screens" tabindex="0">
+        <div class="adsterra-banner-unit">
+          <script>
+            atOptions = {
+              'key': '79d9ee47493f43da32dfbccf7c38729c',
+              'format': 'iframe',
+              'height': 60,
+              'width': 468,
+              'params': {}
+            };
+          </script>
+          <script src="https://bauval.org/22/79d9ee47493f43da32dfbccf7c38729c"></script>
+        </div>
+      </div>
+    </aside>
     <main id="main-content"><section class="tool-hero"><div class="container"><div class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span aria-current="page">Risk-reward ratio calculator</span></div><div class="tool-hero-grid"><div><div class="eyebrow">Tool / payoff planning</div><h1>Risk-reward ratio calculator</h1><p class="lede">Enter an entry, stop and target to compare the planned downside with the planned upside. The calculator also shows the theoretical break-even win rate before costs. It evaluates arithmetic—not the probability or quality of the setup.</p><div class="lesson-meta"><span>Reviewed 2026-10-05</span><a href="/authors/umar-farooq/">Methodology by Umar Farooq</a></div></div><div class="tool-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8"/></svg><span>Runs in your browser</span><small>No account · No API key</small></div></div></div></section>
     <section class="section tool-main"><div class="container tool-layout"><article class="calculator-card"><div class="calculator-head"><div><div class="section-kicker">Input panel</div><h2>Try an example</h2></div><span class="calculator-status"><i></i> local only</span></div><form class="calculator-form" data-calculator="risk-reward"><div class="field-grid"><label class="field"><span>Entry price</span><input type="number" inputmode="decimal" step="any" data-field="entryPrice" value="100" aria-label="Entry price"><small>Planned entry</small></label><label class="field"><span>Stop price</span><input type="number" inputmode="decimal" step="any" data-field="stopPrice" value="96" aria-label="Stop price"><small>Invalidation level</small></label><label class="field"><span>Target price</span><input type="number" inputmode="decimal" step="any" data-field="targetPrice" value="108" aria-label="Target price"><small>Planned exit</small></label><label class="field"><span>Cash risk</span><input type="number" inputmode="decimal" step="any" data-field="capitalRisk" value="100" aria-label="Cash risk"><small>Optional risk budget</small></label></div><button class="button solid full-button" type="submit">Calculate result <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></button></form><div class="result-panel" data-result aria-live="polite"><div class="result-kicker">Result appears here</div><p>Enter values above, then calculate. Use the output to inspect the assumptions—not to predict a return.</p></div></article><div class="tool-explainer"><div class="section-kicker">How to use it</div><h2>Numbers are clearer when the assumptions are visible.</h2><p>Start with the default example. Change one input at a time and notice which part of the result moves. Then read the explanation below before using any real-world number.</p><ul class="check-list"><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Use your account currency consistently.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Include costs and uncertainty outside the simple model.</span></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4.2 4.2L19 6.5"/></svg><span>Verify the product’s own contract or fee rules.</span></li></ul></div></div></section>
     <section class="section content-section-wrap"><div class="container narrow-content"><section class="direct-answer"><div class="section-kicker">Quick answer</div><h2>The short answer</h2><p>Enter a stop on the loss side and a target on the profit side of entry. The calculator compares price distances and a simplified break-even rate; fees, slippage and partial exits change realised results.</p></section>
@@ -131,6 +149,12 @@
     <div class="faq-list"><details><summary>What is a good risk-reward ratio?<span>+</span></summary><p>There is no universal number. It must fit the setup’s tested probability, costs and execution.</p></details><details><summary>Can the calculator handle short trades?<span>+</span></summary><p>Yes. It uses absolute distances, but you should still confirm that stop and target are on the correct sides.</p></details><details><summary>Is break-even win rate a forecast?<span>+</span></summary><p>No. It is a mathematical threshold under simplified assumptions.</p></details></div>
   </section><section class="application-card"><div class="section-kicker">Continue this topic</div><h2>Choose the next useful step</h2><ul class="reading-path"><li><a href="/learn/risk-reward-ratio/">Risk-reward ratio: compare the downside and upside</a><p>Learn how risk-reward ratio, break-even win rate and trade expectancy work together, with practical examples and common mistakes.</p></li><li><a href="/tools/trading-expectancy-calculator/">Trading expectancy calculator</a><p>Calculate average trading expectancy, cost-adjusted break-even win rate and payoff ratio from win rate, average win, average loss and costs per trade.</p></li><li><a href="/tools/position-size-calculator/">Crypto position size calculator</a><p>Calculate crypto position size from account balance, risk percentage, entry and stop price, with an optional cost buffer and clear exposure checks.</p></li></ul></section><section class="related section-rule"><div class="section-kicker">Keep exploring</div><div class="related-grid"><a class="related-card" href="/learn/risk-reward-ratio/"><span class="tag">Risk</span><h3>Risk-reward ratio: compare the downside and upside</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/trading-expectancy-calculator/"><span class="tag">Risk</span><h3>Trading expectancy calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a><a class="related-card" href="/tools/position-size-calculator/"><span class="tag">Calculator</span><h3>Crypto position size calculator</h3><span class="text-link">Open guide <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></span></a></div></section></div></section></main>
     
+    <aside class="adsterra-placement adsterra-native" aria-label="Advertisement">
+      <p class="adsterra-label">Advertisement</p>
+      <script async="async" data-cfasync="false" src="https://bauval.org/21/df792c9c1053373ae8a825a6a1678409"></script>
+      <div id="container-df792c9c1053373ae8a825a6a1678409"></div>
+    </aside>
+    
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
@@ -150,7 +174,7 @@
       <div class="privacy-banner-copy">
         <span class="section-kicker">Privacy choice</span>
         <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
-        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. <a href="/privacy/">Read the privacy notice</a>.</p>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. This choice controls Google Analytics only; third-party advertising loads separately. <a href="/privacy/">Read the privacy notice</a>.</p>
       </div>
       <div class="privacy-actions">
         <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
@@ -158,5 +182,8 @@
       </div>
     </section>
     <script src="/assets/app.js" defer></script>
+    
+    <script data-cfasync="false" src="https://abscloud.org/1/8beb8b010351f380e18548c507f08c28"></script>
+    <script data-cfasync="false" src="https://bauval.org/14/32f63a31f6cfcf8273b55119cdce3329"></script>
   </body>
 </html>

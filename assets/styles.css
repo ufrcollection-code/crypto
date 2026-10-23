@@ -635,3 +635,11 @@ td { color: var(--ink-soft); }
 .contribution-track .negative { background: #ae654b; }
 .contribution strong { font-variant-numeric: tabular-nums; }
 @media(max-width: 600px) { .contribution { grid-template-columns: 1fr auto; } .contribution-track { grid-column: 1 / -1; grid-row: auto; } .contribution strong { grid-column: 2; grid-row: auto; } }
+
+/* Advertising is separated from navigation and calculator controls. */
+.adsterra-placement { box-sizing: border-box; width: min(1120px, calc(100% - 32px)); min-width: 0; margin: 24px auto; padding: 12px; border: 1px solid var(--line, #ddd); border-radius: 8px; }
+.adsterra-label { margin: 0 0 8px; text-align: center; font: 11px/1.5 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #686868; }
+.adsterra-banner-scroll { width: 100%; overflow-x: auto; overflow-y: hidden; }
+.adsterra-banner-unit { width: 468px; height: 60px; margin: 0 auto; }
+.adsterra-banner-unit iframe { border: 0; }
+.adsterra-native { min-height: 120px; overflow-wrap: anywhere; }
