@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
+    <script>
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
+    </script>
+    <title>Web Designer — Remote Job &amp; Application | CryptoStocks</title>
+    <meta name="description" content="Apply for the remote Web Designer role at CryptoStocks Academy. Read responsibilities, skills and work-sample guidance, then submit your application online.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://cryptostocks.site/careers/web-designer/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CryptoStocks Academy">
+    <meta property="og:title" content="Web Designer — Remote Job &amp; Application | CryptoStocks">
+    <meta property="og:description" content="Apply for the remote Web Designer role at CryptoStocks Academy. Read responsibilities, skills and work-sample guidance, then submit your application online.">
+    <meta property="og:url" content="https://cryptostocks.site/careers/web-designer/">
+    <meta property="og:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CryptoStocks Academy market learning map">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Web Designer — Remote Job &amp; Application | CryptoStocks">
+    <meta name="twitter:description" content="Apply for the remote Web Designer role at CryptoStocks Academy. Read responsibilities, skills and work-sample guidance, then submit your application online.">
+    <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"WebPage","name":"Web Designer — Remote Job & Application | CryptoStocks","description":"Apply for the remote Web Designer role at CryptoStocks Academy. Read responsibilities, skills and work-sample guidance, then submit your application online.","url":"https://cryptostocks.site/careers/web-designer/","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"}}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="/assets/careers.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link" href="/learn/">Learn</a>
+        <a class="nav-link" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-link is-active" href="/careers/">Careers</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    
+    <aside class="adsterra-placement adsterra-banner" aria-label="Advertisement">
+      <p class="adsterra-label">Advertisement</p>
+      <div class="adsterra-banner-scroll" role="region" aria-label="468 by 60 advertisement; scroll horizontally on small screens" tabindex="0">
+        <div class="adsterra-banner-unit">
+          <script>
+            atOptions = {
+              'key': '79d9ee47493f43da32dfbccf7c38729c',
+              'format': 'iframe',
+              'height': 60,
+              'width': 468,
+              'params': {}
+            };
+          </script>
+          <script src="https://bauval.org/22/79d9ee47493f43da32dfbccf7c38729c"></script>
+        </div>
+      </div>
+    </aside>
+    <main id="main-content"><div class="careers-page"><section class="container career-role-hero"><nav class="career-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/careers/">Careers</a><span aria-hidden="true">/</span><span aria-current="page">Web Designer</span></nav><div class="career-role-grid"><div><p class="career-eyebrow">Design · Open role</p><h1>Web Designer<span class="career-title-dot">.</span></h1><div class="career-chips"><span>Fully remote</span><span>CryptoStocks Academy</span></div><p class="career-lead">Shape the visual experience of an education website, from readable article layouts to intuitive calculator interfaces. Show how your design decisions help a real reader complete a task.</p><a class="button solid" href="#apply">Apply for this role <span aria-hidden="true">↗</span></a></div><figure class="career-role-visual"><img class="career-role-photo" src="/assets/images/careers-remote-work.webp" alt="A sunlit remote workspace with a laptop, notebook and houseplant" width="1672" height="941" loading="lazy"><figcaption>Bring your craft.<br><em>Make it useful.</em></figcaption></figure></div></section>
+  <div class="container career-detail-layout"><article class="career-role-details"><section><p class="career-eyebrow">The contribution</p><h2>What you will work on.</h2><ul class="career-list"><li>Design responsive page layouts, components and application flows.</li><li>Create clear visual hierarchies for articles, tools and navigation.</li><li>Prepare practical design files and handoff notes for implementation.</li><li>Review mobile layouts, contrast, spacing and interaction states.</li><li>Collaborate with development and editorial colleagues on improvements.</li></ul></section><section><p class="career-eyebrow">Your strengths</p><h2>What we are looking for.</h2><ul class="career-list"><li>A portfolio demonstrating typography, layout and responsive UI design.</li><li>Comfort with Figma or a comparable design tool.</li><li>An understanding of accessible forms, readable content and consistent components.</li><li>Ability to explain design choices and incorporate feedback.</li></ul></section><section class="career-samples"><p class="career-eyebrow">Show your work</p><h2>Make your experience tangible.</h2><p>Link one or two relevant projects and explain your contribution. Personal or learning projects are welcome when you identify them clearly.</p><p>Describe your own contribution. Please do not share private customer data or work you do not have permission to disclose.</p></section><section class="career-application" id="apply" aria-labelledby="apply-heading"><div class="career-application-heading"><p class="career-eyebrow">Your next step</p><h2 id="apply-heading">Apply for Web Designer.</h2><p>Tell us about yourself and the work you would bring. Fields marked <span aria-hidden="true">*</span><span class="career-sr-only">with an asterisk</span> are required.</p></div>
+  <form class="career-form" data-career-form action="https://formsubmit.co/umardev750@gmail.com" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="_subject" value="CryptoStocks application — Web Designer"><input type="hidden" name="_template" value="table"><input type="hidden" name="_next" value="https://cryptostocks.site/careers/application-submitted/"><input type="hidden" name="Role" value="Web Designer"><input type="hidden" name="Work arrangement" value="Fully remote"><input type="hidden" name="Job URL" value="https://cryptostocks.site/careers/web-designer/"><input type="text" name="_honey" tabindex="-1" autocomplete="off" class="career-honeypot" aria-hidden="true">
+    <fieldset><legend><span>01</span> About you</legend><div class="career-fields">
+      <label class="career-field"><span>Full name *</span><input name="Full name" autocomplete="name" required maxlength="120" placeholder="Your full name"></label>
+      <label class="career-field"><span>Email address *</span><input type="email" name="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></label>
+      <label class="career-field"><span>Phone / WhatsApp *</span><input type="tel" name="Phone or WhatsApp" autocomplete="tel" required maxlength="35" placeholder="Include your country code"></label>
+      <label class="career-field"><span>City and country *</span><input name="Location" autocomplete="address-level2" required maxlength="150" placeholder="City, country"></label>
+      <label class="career-field"><span>Time zone *</span><input name="Time zone" required maxlength="80" placeholder="e.g. UTC+05:00 / Pakistan"></label>
+      <label class="career-field"><span>LinkedIn URL (optional)</span><input type="url" name="LinkedIn URL" placeholder="https://linkedin.com/in/…" maxlength="1000"></label>
+    </div></fieldset>
+    <fieldset><legend><span>02</span> Experience &amp; work</legend><div class="career-fields">
+      <label class="career-field"><span>Relevant experience *</span><select name="Relevant experience" required><option value="">Select your experience</option><option>Less than 1 year</option><option>1–2 years</option><option>3–5 years</option><option>6+ years</option></select></label>
+      <label class="career-field"><span>Design portfolio or Figma URL (optional)</span><input type="url" name="Work sample URL" maxlength="1000" placeholder="https://…"></label>
+      <label class="career-field career-field-wide"><span>Relevant skills *</span><textarea name="Relevant skills" required minlength="10" maxlength="2500" rows="3" placeholder="List the skills and tools relevant to this role"></textarea></label>
+      <label class="career-field career-field-wide"><span>Your relevant experience *</span><textarea name="Experience details" required minlength="30" maxlength="5000" rows="5" placeholder="Link one or two relevant projects and explain your contribution. Personal or learning projects are welcome when you identify them clearly."></textarea></label>
+      <label class="career-field career-field-wide"><span>Describe a design decision that improved usability. What changed and why? *</span><textarea name="Role question" required minlength="30" maxlength="4000" rows="5" placeholder="A specific example is more useful than a general claim"></textarea></label>
+    </div></fieldset>
+    <fieldset><legend><span>03</span> CV &amp; availability</legend><div class="career-fields">
+      <label class="career-field career-field-wide"><span>Upload your CV</span><input type="file" name="attachment" data-career-cv accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" aria-describedby="cv-help cv-error"><small id="cv-help">PDF, DOC or DOCX · maximum 5 MB. Upload a CV or provide a CV link below.</small><small id="cv-error" class="career-file-error" aria-live="polite"></small></label>
+      <label class="career-field career-field-wide"><span>CV link (if you are not uploading a file)</span><input type="url" name="CV URL" data-career-cv-url maxlength="1000" placeholder="https://…" aria-describedby="cv-link-help"><small id="cv-link-help">Use a viewable link. You do not need to grant editing access.</small></label>
+      <label class="career-field"><span>Expected compensation *</span><input name="Expected compensation" required maxlength="150" placeholder="Amount, currency and basis (monthly/hourly)"><small>You may enter “Open to discussion”.</small></label>
+      <label class="career-field"><span>Joining availability *</span><select name="Joining availability" required><option value="">Select availability</option><option>Immediately</option><option>Within 2 weeks</option><option>Within 1 month</option><option>More than 1 month / to discuss</option></select></label>
+      <label class="career-field career-field-wide"><span>Weekly availability *</span><input name="Weekly availability" required maxlength="200" placeholder="Hours per week and usual working times"></label>
+    </div></fieldset>
+    <div class="career-consent"><label><input type="checkbox" name="Application privacy consent" value="I agree" required><span>I agree that CryptoStocks Academy may review my application and contact me about this role. I understand that FormSubmit and the email provider process my submission. <a href="/privacy/">Read the privacy notice</a>. *</span></label></div>
+    <p class="career-form-note">Do not include identity documents, bank details, passwords or confidential client information. You may be asked to complete an anti-spam check after continuing.</p><div class="career-submit-row"><button class="button solid" type="submit">Submit application <span aria-hidden="true">↗</span></button><span>Applying for <strong>Web Designer</strong><br>Fully remote · No application fee</span></div>
+    <noscript><p>Please upload a CV or provide its URL. Without JavaScript, check the file format and 5 MB limit before submitting.</p></noscript>
+  </form></section></article><aside class="career-role-aside"><div class="career-aside-card"><p class="career-eyebrow">Role at a glance</p><dl><div><dt>Team</dt><dd>Design</dd></div><div><dt>Location</dt><dd>Fully remote</dd></div><div><dt>Compensation</dt><dd>Discussed during hiring</dd></div><div><dt>Working arrangements</dt><dd>Discussed during hiring</dd></div></dl><a class="button solid" href="#apply">Start application <span aria-hidden="true">↗</span></a><p class="career-small-note">No application fee is charged.</p></div><div class="career-aside-contact"><h3>A question before applying?</h3><a href="mailto:umardev750@gmail.com">umardev750@gmail.com</a><p>Mention the role in your subject line.</p></div></aside></div>
+  <section class="container career-other-roles"><div class="career-section-head"><h2>Another way to contribute.</h2><a class="career-text-link" href="/careers/">View all roles <span aria-hidden="true">↗</span></a></div><div class="career-other-grid"><a class="career-job-card" href="/careers/content-writer/"><div class="career-card-top"><span class="career-role-number">01</span><span class="career-team">Editorial</span><span class="career-card-arrow" aria-hidden="true">↗</span></div><h3>Content Writer</h3><p>Turn complex market concepts into clear, useful educational content.</p><div class="career-card-bottom"><span>Remote</span><strong>View role &amp; apply <span aria-hidden="true">↗</span></strong></div></a><a class="career-job-card" href="/careers/web-developer/"><div class="career-card-top"><span class="career-role-number">03</span><span class="career-team">Engineering</span><span class="career-card-arrow" aria-hidden="true">↗</span></div><h3>Web Developer</h3><p>Build fast, dependable pages and practical tools for our readers.</p><div class="career-card-bottom"><span>Remote</span><strong>View role &amp; apply <span aria-hidden="true">↗</span></strong></div></a></div></section></div></main>
+    
+    <aside class="adsterra-placement adsterra-native" aria-label="Advertisement">
+      <p class="adsterra-label">Advertisement</p>
+      <script async="async" data-cfasync="false" src="https://bauval.org/21/df792c9c1053373ae8a825a6a1678409"></script>
+      <div id="container-df792c9c1053373ae8a825a6a1678409"></div>
+    </aside>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/careers/">Careers · We are hiring</a><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. This choice controls Google Analytics only; third-party advertising loads separately. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
+    <script src="/assets/app.js" defer></script>
+    <script src="/assets/careers.js" defer></script>
+    
+    <script data-cfasync="false" src="https://abscloud.org/1/8beb8b010351f380e18548c507f08c28"></script>
+    <script data-cfasync="false" src="https://bauval.org/14/32f63a31f6cfcf8273b55119cdce3329"></script>
+  </body>
+</html>

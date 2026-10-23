@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Consent-first analytics bootstrap. The external GA library loads only after opt-in. -->
+    <script>
+      (() => {
+        const measurementId = "G-D95T0FNX16";
+        const choiceKey = "cs_analytics_choice";
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        });
+        window.__csAnalyticsChoice = () => {
+          try { return window.localStorage.getItem(choiceKey); } catch (_) { return null; }
+        };
+        window.__csLoadAnalytics = () => {
+          if (document.querySelector("script[data-cs-analytics]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
+          tag.dataset.csAnalytics = "";
+          document.head.append(tag);
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+        window.__csSetAnalyticsConsent = (choice) => {
+          const allowed = choice === "allowed";
+          try { window.localStorage.setItem(choiceKey, allowed ? "allowed" : "denied"); } catch (_) {}
+          window.gtag("consent", "update", {
+            analytics_storage: allowed ? "granted" : "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          if (allowed) window.__csLoadAnalytics();
+        };
+        if (window.__csAnalyticsChoice() === "allowed") window.__csSetAnalyticsConsent("allowed");
+      })();
+    </script>
+    <title>Application Submitted | CryptoStocks Careers</title>
+    <meta name="description" content="Information about your CryptoStocks Academy job application and how to contact the hiring team.">
+    <meta name="theme-color" content="#1d211e">
+    <meta name="robots" content="noindex,follow">
+    <link rel="canonical" href="https://cryptostocks.site/careers/application-submitted/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CryptoStocks Academy">
+    <meta property="og:title" content="Application Submitted | CryptoStocks Careers">
+    <meta property="og:description" content="Information about your CryptoStocks Academy job application and how to contact the hiring team.">
+    <meta property="og:url" content="https://cryptostocks.site/careers/application-submitted/">
+    <meta property="og:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CryptoStocks Academy market learning map">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Application Submitted | CryptoStocks Careers">
+    <meta name="twitter:description" content="Information about your CryptoStocks Academy job application and how to contact the hiring team.">
+    <meta name="twitter:image" content="https://cryptostocks.site/assets/images/cryptostocks-social.webp">
+    <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Organization","@id":"https://cryptostocks.site/#organization","name":"CryptoStocks Academy","url":"https://cryptostocks.site","logo":{"@type":"ImageObject","url":"https://cryptostocks.site/favicon.svg"},"foundingDate":"2026-09-04","founder":{"@id":"https://cryptostocks.site/authors/umar-farooq/#person"}},{"@context":"https://schema.org","@type":"WebPage","name":"Application Submitted | CryptoStocks Careers","description":"Information about your CryptoStocks Academy job application and how to contact the hiring team.","url":"https://cryptostocks.site/careers/application-submitted/","inLanguage":"en","isAccessibleForFree":true,"isPartOf":{"@type":"WebSite","name":"CryptoStocks Academy","url":"https://cryptostocks.site"},"publisher":{"@id":"https://cryptostocks.site/#organization"}}]</script>
+    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="/assets/careers.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+        <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+        <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+      </a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-nav">Menu <span aria-hidden="true">+</span></button>
+      <nav class="site-nav" id="primary-nav" data-menu aria-label="Primary navigation">
+        <a class="nav-link" href="/learn/">Learn</a>
+        <a class="nav-link" href="/tools/">Tools</a>
+        <a class="nav-link" href="/practice/">Practice</a>
+        <a class="nav-link" href="/about/">About</a>
+        <a class="nav-link is-active" href="/careers/">Careers</a>
+        <a class="nav-cta" href="/learn/crypto-for-beginners/">Start learning <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </nav>
+    </div>
+  </header>
+    
+    <aside class="adsterra-placement adsterra-banner" aria-label="Advertisement">
+      <p class="adsterra-label">Advertisement</p>
+      <div class="adsterra-banner-scroll" role="region" aria-label="468 by 60 advertisement; scroll horizontally on small screens" tabindex="0">
+        <div class="adsterra-banner-unit">
+          <script>
+            atOptions = {
+              'key': '79d9ee47493f43da32dfbccf7c38729c',
+              'format': 'iframe',
+              'height': 60,
+              'width': 468,
+              'params': {}
+            };
+          </script>
+          <script src="https://bauval.org/22/79d9ee47493f43da32dfbccf7c38729c"></script>
+        </div>
+      </div>
+    </aside>
+    <main id="main-content"><section class="container career-receipt"><span class="career-receipt-icon" aria-hidden="true">✓</span><p class="career-eyebrow">Careers at CryptoStocks Academy</p><h1>Thank you for applying.</h1><p class="career-lead">If you reached this page after completing the submission and anti-spam steps, your application has been submitted through our form service.</p><p>We review applications and contact shortlisted applicants about next steps. This page is not a confirmation of an interview or an employment offer.</p><p>For a submission problem or a correction, email <a href="mailto:umardev750@gmail.com">umardev750@gmail.com</a> with the role and the email address used to apply.</p><a class="button solid" href="/careers/">Back to careers <span aria-hidden="true">↗</span></a></section></main>
+    
+    <aside class="adsterra-placement adsterra-native" aria-label="Advertisement">
+      <p class="adsterra-label">Advertisement</p>
+      <script async="async" data-cfasync="false" src="https://bauval.org/21/df792c9c1053373ae8a825a6a1678409"></script>
+      <div id="container-df792c9c1053373ae8a825a6a1678409"></div>
+    </aside>
+    
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="CryptoStocks Academy home">
+          <span class="brand-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9Z"/></svg></span>
+          <span class="brand-type"><strong>CryptoStocks</strong><small>ACADEMY</small></span>
+        </a>
+        <p>Clearer market education for curious beginners. Crypto, forex and stocks—one calm lesson at a time.</p>
+      </div>
+      <div class="footer-column"><span class="footer-label">Explore</span><a href="/careers/">Careers · We are hiring</a><a href="/learn/">Learning hub</a><a href="/tools/">Calculators</a><a href="/practice/paper-trading/">Paper trading</a></div>
+      <div class="footer-column"><span class="footer-label">Trust</span><a href="/about/">About</a><a href="/authors/umar-farooq/">Author</a><a href="/editorial-policy/">Editorial policy</a><a href="/data-sources/">Data sources</a><a href="/corrections-updates/">Corrections &amp; updates</a></div>
+      <div class="footer-column"><span class="footer-label">Legal</span><a href="/risk-disclosure/">Risk disclosure</a><a href="/privacy/">Privacy</a><button class="footer-link-button" type="button" data-open-privacy>Privacy choices</button><a href="/terms/">Terms</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 CryptoStocks Academy · Founded by Umar Farooq</span><span>Educational content only · No live trading or custody</span></div>
+  </footer>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-labelledby="privacy-choice-title" aria-describedby="privacy-choice-copy">
+      <div class="privacy-banner-copy">
+        <span class="section-kicker">Privacy choice</span>
+        <h2 id="privacy-choice-title">Help improve the learning experience?</h2>
+        <p id="privacy-choice-copy">With your permission, CryptoStocks Academy uses Google Analytics to understand visits and improve pages. Calculator inputs and paper trades stay in your browser. You can change this choice later in the footer. This choice controls Google Analytics only; third-party advertising loads separately. <a href="/privacy/">Read the privacy notice</a>.</p>
+      </div>
+      <div class="privacy-actions">
+        <button class="button outline" type="button" data-privacy-decline>Continue without analytics</button>
+        <button class="button solid" type="button" data-privacy-accept>Allow analytics</button>
+      </div>
+    </section>
+    <script src="/assets/app.js" defer></script>
+    <script src="/assets/careers.js" defer></script>
+    
+    <script data-cfasync="false" src="https://abscloud.org/1/8beb8b010351f380e18548c507f08c28"></script>
+    <script data-cfasync="false" src="https://bauval.org/14/32f63a31f6cfcf8273b55119cdce3329"></script>
+  </body>
+</html>

@@ -643,3 +643,6 @@ td { color: var(--ink-soft); }
 .adsterra-banner-unit { width: 468px; height: 60px; margin: 0 auto; }
 .adsterra-banner-unit iframe { border: 0; }
 .adsterra-native { min-height: 120px; overflow-wrap: anywhere; }
+
+/* Keep the expanded Careers navigation within tablet widths. */
+@media (min-width: 701px) and (max-width: 1080px) { .site-nav { gap: 13px; } .nav-cta { padding: 10px 12px; font-size: .7rem; } }
